@@ -1,0 +1,43 @@
+<section class="w-full max-w-[733px] mx-auto px-4 sm:px-0" dir="rtl">
+
+  <!-- Heading -->
+  <h2 class="text-xl md:text-2xl font-normal text-[#101828] mb-6 md:mb-8">
+    منهج الكورس
+  </h2>
+
+  @for (topic of topics(); track topic.sort_order) {
+  <div class="border border-[#F3F4F6] rounded-2xl p-4 md:p-6 mb-4 md:mb-6">
+
+    <!-- Header -->
+    <div class="flex items-start md:items-center mb-4 md:mb-6 gap-3 md:gap-4">
+
+      <!-- Number Box -->
+      <div
+        class="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-2xl bg-gradient-to-b from-[#0066CC] to-[#6B4FBB] text-white text-sm md:text-base shrink-0">
+        {{ topic.sort_order }}
+      </div>
+
+      <!-- Title -->
+      <div>
+        <h3 class="text-base md:text-lg text-[#101828] leading-6">
+          {{ topic.title }}
+        </h3>
+        <p class="text-xs md:text-sm text-[#4A5565]">
+          {{ topic.hours }} ساعة
+        </p>
+      </div>
+    </div>
+
+    <!-- Description -->
+    <p class="text-sm md:text-base text-[#364153] leading-6">
+      {{ topic.description }}
+    </p>
+
+  </div>
+  } @empty {
+  <div class="text-center py-10 text-gray-400">
+    <p>لا يوجد منهج متاح حالياً</p>
+  </div>
+  }
+
+</section>

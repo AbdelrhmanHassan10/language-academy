@@ -1,0 +1,123 @@
+<section
+  class="w-full max-w-[1216px] mx-auto mt-16 md:mt-24 lg:mt-32 mb-16 px-4 flex flex-col lg:flex-row gap-8"
+  dir="rtl"
+>
+  <!-- Main Content -->
+  <div class="w-full lg:w-[800px] bg-white border border-[#F3F4F6] rounded-2xl">
+    <!-- Tabs -->
+    <div class="flex border-b border-black/10 text-center overflow-x-auto">
+      <button
+        (click)="setTab('overview')"
+        [class.bg-[#0066CC]]="activeTab() === 'overview'"
+        [class.text-white]="activeTab() === 'overview'"
+        class="flex-1 min-w-[120px] h-14 text-sm md:text-base cursor-pointer whitespace-nowrap"
+        [class.text-[#4A5565]]="activeTab() !== 'overview'"
+      >
+        نظرة عامة
+      </button>
+
+      <button
+        (click)="setTab('curriculum')"
+        [class.bg-[#0066CC]]="activeTab() === 'curriculum'"
+        [class.text-white]="activeTab() === 'curriculum'"
+        class="flex-1 min-w-[120px] h-14 text-sm md:text-base cursor-pointer whitespace-nowrap"
+        [class.text-[#4A5565]]="activeTab() !== 'curriculum'"
+      >
+        المنهج
+      </button>
+
+      <button
+        (click)="setTab('instructor')"
+        [class.bg-[#0066CC]]="activeTab() === 'instructor'"
+        [class.text-white]="activeTab() === 'instructor'"
+        class="flex-1 min-w-[120px] h-14 text-sm md:text-base cursor-pointer whitespace-nowrap"
+        [class.text-[#4A5565]]="activeTab() !== 'instructor'"
+      >
+        المدرب
+      </button>
+
+      <!-- <button
+        (click)="setTab('reviews')"
+        [class.bg-[#0066CC]]="activeTab() === 'reviews'"
+        [class.text-white]="activeTab() === 'reviews'"
+        class="flex-1 min-w-[120px] h-14 text-sm md:text-base cursor-pointer whitespace-nowrap"
+        [class.text-[#4A5565]]="activeTab() !== 'reviews'"
+      >
+        التقييمات
+      </button> -->
+    </div>
+
+    <!-- Content Body -->
+    <div class="p-4 md:p-6 lg:p-8 space-y-8 md:space-y-12">
+      @if (activeTab() === 'overview') {
+        <app-course-overview [course]="course()"></app-course-overview>
+      }
+
+      @if (activeTab() === 'curriculum') {
+        <app-course-curriculum [topics]="course()?.topics ?? []"></app-course-curriculum>
+      }
+
+      @if (activeTab() === 'instructor') {
+        <app-course-instructor
+          [instructorName]="course()?.basic_info?.instructor_name ?? ''"
+        ></app-course-instructor>
+      }
+
+      @if (activeTab() === 'reviews') {
+        <app-course-reviews></app-course-reviews>
+      }
+    </div>
+  </div>
+
+  <!-- Sidebar (من غير تغيير في المحتوى – بس responsive behavior) -->
+  <div class="w-full lg:w-[384px] flex flex-col gap-6">
+    <div class="bg-white border border-[#F3F4F6] rounded-2xl p-4 md:p-6 space-y-4">
+      <h3 class="text-base md:text-lg text-[#101828]">معلومات سريعة</h3>
+
+      <div class="flex justify-between border-b pb-2 text-sm">
+        <span class="text-[#4A5565]">المستوى</span>
+        <span class="text-[#101828]">{{ course()?.extra_details?.level }}</span>
+      </div>
+
+      <div class="flex justify-between border-b pb-2 text-sm">
+        <span class="text-[#4A5565]">اللغة</span>
+        <span class="text-[#101828]">{{ course()?.extra_details?.language }}</span>
+      </div>
+
+      <div class="flex justify-between border-b pb-2 text-sm">
+        <span class="text-[#4A5565]">الموقع</span>
+        <span class="text-[#101828]">{{ course()?.extra_details?.location?.ar }}</span>
+      </div>
+
+      <div class="flex justify-between border-b pb-2 text-sm">
+        <span class="text-[#4A5565]">آخر موعد للتسجيل</span>
+        <span class="text-[#101828]">{{ course()?.extra_details?.registration_deadline }}</span>
+      </div>
+
+      <div class="flex justify-between text-sm">
+        <span class="text-[#4A5565]">الحد الأقصى للطلاب</span>
+        <span class="text-[#101828]">{{ course()?.extra_details?.max_students }} طالب</span>
+      </div>
+    </div>
+
+    <div
+      class="bg-gradient-to-br from-[#EFF6FF] to-[#FAF5FF] border border-[#DBEAFE] rounded-2xl p-4 md:p-6 space-y-4"
+    >
+      <h3 class="text-base md:text-lg text-[#101828]">يعجبك هذا الكورس؟</h3>
+      <p class="text-sm text-[#4A5565]">قم بالاشتراك الآن</p>
+
+      <button
+        (click)="isRegisterPanelOpen.set(true)"
+        class="w-full h-12 bg-[#0066CC] text-white rounded-full text-base font-bold hover:opacity-90 transition-opacity cursor-pointer"
+      >
+        سجّل الآن
+      </button>
+    </div>
+  </div>
+
+  <app-course-register
+    [isOpen]="isRegisterPanelOpen()"
+    [courseId]="courseId()"
+    (closePanel)="isRegisterPanelOpen.set(false)"
+  />
+</section>

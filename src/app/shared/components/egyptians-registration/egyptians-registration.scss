@@ -1,0 +1,12 @@
+input[type="date"] {
+  &::-webkit-calendar-picker-indicator {
+    opacity: 0.6;
+    cursor: pointer;
+    filter: invert(30%) sepia(80%) saturate(500%) hue-rotate(190deg); // makes it blue #0066CC
+  }
+
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    display: none;
+  }
+}

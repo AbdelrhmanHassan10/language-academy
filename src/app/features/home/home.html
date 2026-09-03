@@ -1,0 +1,33 @@
+<div>
+  <app-hero-section [data]="heroData()" class="mb-4 lg:mb-0 block" />
+
+  <div class="relative z-20 pt-12 lg:pt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pb-8 lg:pb-16 px-4 lg:px-8 max-w-[1400px] mx-auto">
+    @for (card of educationalCards(); track card.id) {
+    <app-educational-cards [cards]="card" />
+    }
+  </div>
+
+  <div class="pb-4 lg:pb-8 bg-[#0066CC] px-4 lg:px-8">
+    <app-lang-translation></app-lang-translation>
+  </div>
+
+  <div class="py-6 lg:py-12 px-4 lg:px-8 bg-white">
+    <app-courses></app-courses>
+  </div>
+
+  <div class="pb-6 lg:pb-12 px-4 lg:px-8 bg-white">
+    <app-contact-us></app-contact-us>
+  </div>
+
+  <div class="pb-6 lg:pb-12 px-4 lg:px-8 bg-gradient-to-br from-[#F0FDFA] via-[#EFF6FF] to-[#FAF5FF]">
+    <app-exam></app-exam>
+  </div>
+
+  <div class="pb-6 lg:pb-12 px-4 lg:px-8 bg-[#5e64c7]">
+    <app-learning-lang></app-learning-lang>
+  </div>
+
+  <app-steps></app-steps>
+
+  <app-social-media></app-social-media>
+</div>

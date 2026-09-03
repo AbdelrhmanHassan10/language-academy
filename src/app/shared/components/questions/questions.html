@@ -1,0 +1,138 @@
+<section class="bg-[#F8FAFC] py-20 lg:py-28" dir="rtl">
+  <div class="max-w-[1000px] mx-auto px-4 md:px-8">
+
+    <!-- ═══════ Header ═══════ -->
+    <div class="text-center mb-16" data-aos="fade-down" data-aos-duration="1000">
+      <div
+        class="inline-flex items-center justify-center w-20 h-20 rounded-[1.5rem] bg-gradient-to-br from-[#0066CC] to-[#00B2A9] text-white shadow-xl shadow-blue-500/20 mb-6">
+        <i class="fa-regular fa-comments text-4xl"></i>
+      </div>
+      <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#1e293b] mb-4">
+        الأسئلة <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#0066CC] to-[#00B2A9]">الشائعة</span>
+      </h2>
+      <p class="text-lg md:text-xl text-[#64748B] font-medium">إجابات سريعة وواضحة لأهم الأسئلة التي تهمك</p>
+    </div>
+
+    <!-- ═══════ Error State ═══════ -->
+    @if (error()) {
+    <div class="text-center bg-white rounded-[2rem] p-10 shadow-sm border border-red-100 max-w-2xl mx-auto">
+      <div class="w-20 h-20 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-6">
+        <i class="fa-solid fa-circle-exclamation text-4xl text-red-400"></i>
+      </div>
+      <p class="text-red-500 font-bold text-xl">{{ error() }}</p>
+    </div>
+    }
+
+    <!-- ═══════ Loading State ═══════ -->
+    @if (loading() && faqs().length === 0) {
+    <div class="flex flex-col items-center justify-center py-20">
+      <div class="w-16 h-16 border-4 border-[#0066CC]/20 border-t-[#0066CC] rounded-full animate-spin mb-4"></div>
+      <p class="text-[#64748B] font-medium">جاري تحميل الأسئلة...</p>
+    </div>
+    }
+
+    <!-- ═══════ Empty State ═══════ -->
+    @if (!loading() && !error() && faqs().length === 0) {
+    <div class="text-center bg-white rounded-[2rem] p-16 shadow-sm border border-gray-100 max-w-2xl mx-auto">
+      <div class="w-24 h-24 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6">
+        <i class="fa-regular fa-circle-question text-5xl text-gray-300"></i>
+      </div>
+      <p class="text-2xl font-bold text-[#1e293b]">لا توجد أسئلة شائعة حالياً</p>
+    </div>
+    }
+
+    <!-- ═══════ FAQ List ═══════ -->
+    @if (faqs().length > 0) {
+    <div class="space-y-5" [class.opacity-60]="loading()" [class.pointer-events-none]="loading()">
+      @for (item of faqs(); track item.id; let i = $index) {
+      <div data-aos="fade-up" [attr.data-aos-delay]="(i % 5) * 100"
+        class="group bg-white border rounded-[1.5rem] transition-all duration-300 overflow-hidden"
+        [class]="openIndex === i ? 'border-[#0066CC] shadow-[0_10px_30px_rgb(0,102,204,0.08)]' : 'border-gray-100 shadow-[0_4px_20px_rgb(0,0,0,0.02)] hover:border-blue-100 hover:shadow-md'">
+        <!-- Question Button -->
+        <button (click)="toggleFaq(i)"
+          class="w-full flex items-center justify-between text-right p-6 md:p-8 cursor-pointer focus:outline-none">
+          <div class="flex items-center gap-4 md:gap-6">
+            <!-- 'Q' Badge -->
+            <div
+              class="shrink-0 w-12 h-12 rounded-2xl flex items-center justify-center text-xl font-bold transition-colors duration-300"
+              [class]="openIndex === i ? 'bg-gradient-to-br from-[#0066CC] to-blue-500 text-white shadow-lg shadow-blue-500/20' : 'bg-[#F8FAFC] text-[#0066CC] group-hover:bg-blue-50'">
+              س
+            </div>
+            <!-- Question Text -->
+            <h3 class="font-bold text-lg md:text-xl transition-colors duration-300"
+              [class]="openIndex === i ? 'text-[#0066CC]' : 'text-[#1e293b] group-hover:text-[#0066CC]'">
+              {{ item.question }}
+            </h3>
+          </div>
+
+          <!-- Chevron Icon -->
+          <div
+            class="shrink-0 w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300 ml-2"
+            [class]="openIndex === i ? 'bg-blue-50 text-[#0066CC]' : 'text-gray-400 group-hover:text-[#0066CC] group-hover:bg-blue-50/50'">
+            <i class="fa-solid fa-chevron-down transition-transform duration-300 text-sm md:text-base"
+              [class.rotate-180]="openIndex === i"></i>
+          </div>
+        </button>
+
+        <!-- Answer Panel -->
+        <div class="grid transition-all duration-300 ease-in-out" [class.grid-rows-[1fr]]="openIndex === i"
+          [class.grid-rows-[0fr]]="openIndex !== i">
+          <div class="overflow-hidden">
+            <div class="px-6 md:px-8 pb-6 md:pb-8 pt-2">
+              <div class="border-t border-gray-100 pt-6 flex items-start gap-4 md:gap-6">
+                <!-- 'A' Badge -->
+                <div
+                  class="shrink-0 w-12 h-12 rounded-2xl bg-teal-50 text-[#00B2A9] flex items-center justify-center text-xl font-bold">
+                  ج
+                </div>
+                <!-- Answer Text -->
+                <div class="text-[#64748B] leading-relaxed text-[15px] md:text-base font-medium pt-2">
+                  {{ item.answer }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+
+    <!-- ═══════ Pagination ═══════ -->
+    @if (lastPage > 1) {
+    <div class="flex justify-center items-center gap-3 mt-16" data-aos="fade-up" dir="rtl">
+
+      <!-- Previous Button (RTL: arrow right) -->
+      <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1 || loading()"
+        class="w-12 h-12 rounded-full flex items-center justify-center border-2 border-gray-100 text-gray-500 bg-white hover:bg-[#0066CC] hover:border-[#0066CC] hover:text-white disabled:opacity-40 disabled:hover:bg-white disabled:hover:text-gray-500 disabled:hover:border-gray-100 disabled:cursor-not-allowed transition-all duration-300 shadow-sm">
+        <i class="pi pi-arrow-right text-sm"></i>
+      </button>
+
+      <!-- Page Numbers -->
+      <div class="flex items-center gap-2">
+        @for (page of pages; track page) {
+        <button (click)="goToPage(page)" [disabled]="loading()"
+          class="w-12 h-12 rounded-full text-base font-bold transition-all duration-300 shadow-sm" [class]="
+                  page === currentPage
+                    ? 'bg-[#0066CC] text-white shadow-md transform scale-110'
+                    : 'bg-white text-gray-600 border-2 border-gray-100 hover:bg-blue-50 hover:border-blue-200 hover:text-[#0066CC]'
+                ">
+          {{ page }}
+        </button>
+        }
+      </div>
+
+      <!-- Next Button (RTL: arrow left) -->
+      <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === lastPage || loading()"
+        class="w-12 h-12 rounded-full flex items-center justify-center border-2 border-gray-100 text-gray-500 bg-white hover:bg-[#0066CC] hover:border-[#0066CC] hover:text-white disabled:opacity-40 disabled:hover:bg-white disabled:hover:text-gray-500 disabled:hover:border-gray-100 disabled:cursor-not-allowed transition-all duration-300 shadow-sm">
+        <i class="pi pi-arrow-left text-sm"></i>
+      </button>
+    </div>
+
+    <!-- Page Info -->
+    <p class="text-center text-[13px] font-bold text-gray-400 mt-4" data-aos="fade-up" data-aos-delay="100">
+      صفحة {{ currentPage }} من {{ lastPage }}
+    </p>
+    }
+    }
+  </div>
+</section>

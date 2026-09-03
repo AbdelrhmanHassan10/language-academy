@@ -1,0 +1,30 @@
+@defer (on viewport) {
+  <app-about-center [servicesAbout]="servicesAbout" />
+} @placeholder {
+  <h2>loading...</h2>
+}
+
+<div class="px-5 md:px-[80px] lg:px-[130px]">
+  @defer (on viewport) {
+    <app-courses-services />
+  } @placeholder {
+    <h2>loading...</h2>
+  }
+</div>
+
+@defer (on viewport) {
+  <app-why-our-services />
+} @placeholder {
+  <h2>loading...</h2>
+}
+
+@defer (on viewport) {
+  <app-how-to-start />
+} @placeholder {
+  <h2>loading...</h2>
+}
+@defer (on viewport) {
+  <app-ready-to-start />
+} @placeholder {
+  <h2>loading...</h2>
+}

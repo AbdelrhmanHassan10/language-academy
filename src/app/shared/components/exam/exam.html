@@ -1,0 +1,82 @@
+<section class="relative py-16 lg:py-24 bg-[#F8FAFC] overflow-hidden" dir="rtl">
+  <div class="container mx-auto px-4 lg:px-8 max-w-[1400px]">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+      
+      <!-- Image Side (First in RTL -> Right side) -->
+      <div class="relative h-full flex items-center justify-center lg:justify-start mb-12 lg:mb-0" data-aos="zoom-in" data-aos-duration="1200">
+        <!-- Background decorative shape -->
+        <div class="absolute inset-0 bg-[#0066CC]/5 rounded-[3rem] transform -rotate-2 scale-[1.03] pointer-events-none transition-transform duration-700 group-hover:-rotate-3"></div>
+        <div class="absolute inset-0 bg-teal-500/5 rounded-[3rem] transform rotate-2 scale-[1.03] pointer-events-none transition-transform duration-700 group-hover:rotate-3"></div>
+        
+        <div class="relative w-full max-w-[550px] aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.15)] z-10 group">
+          <img
+            ngSrc="https://images.unsplash.com/photo-1758876201853-31f6bc71f390?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="Student Studying" fill priority class="object-cover transition-transform duration-1000 group-hover:scale-105" />
+          
+          <!-- Subtle Gradient Overlay to make it pop -->
+          <div class="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        </div>
+      </div>
+
+      <!-- Content Side (Second in RTL -> Left side) -->
+      <div class="flex flex-col z-10" data-aos="fade-up" data-aos-duration="1000">
+        <!-- Badge -->
+        <div class="inline-flex items-center gap-2 bg-white rounded-full px-5 py-2 w-fit shadow-sm border border-gray-100 mb-8" data-aos="fade-down" data-aos-delay="200">
+          <span class="w-2.5 h-2.5 rounded-full bg-teal-500 animate-pulse"></span>
+          <span class="text-sm font-bold text-gray-700">ابدأ رحلتك اليوم</span>
+        </div>
+
+        <!-- Heading -->
+        <h2 class="text-4xl lg:text-5xl font-black leading-[1.3] mb-6 global-text-gradient" data-aos="fade-up" data-aos-delay="300">
+          استعد للاختبار، طور مهاراتك، <br class="hidden lg:block" />
+          واحصل على <span class="text-[#0066CC]">ترجمة معتمدة</span>
+        </h2>
+
+        <!-- Subtext -->
+        <p class="text-gray-500 text-lg lg:text-xl font-medium leading-relaxed mb-10 max-w-xl" data-aos="fade-up" data-aos-delay="400">
+          سواء كنت تستعد لاختبار دولي، تريد تحسين لغتك، أو تحتاج لترجمة مستنداتك الأكاديمية، نحن هنا لمساعدتك في كل خطوة.
+        </p>
+
+        <!-- Features Cards -->
+        <div class="flex flex-col sm:flex-row gap-5 mb-10">
+          <!-- Card 1 -->
+          <div class="flex-1 bg-white p-6 rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-gray-100 hover:border-blue-200 transition-all duration-300 group" data-aos="fade-up" data-aos-delay="500">
+            <div class="w-14 h-14 rounded-2xl bg-blue-50 text-[#0066CC] flex items-center justify-center mb-4 group-hover:bg-[#0066CC] group-hover:text-white transition-colors duration-300 global-animate-float">
+              <i class="pi pi-book text-2xl"></i>
+            </div>
+            <h3 class="font-extrabold text-[#1a1a1a] text-xl mb-2">برامج تدريبية</h3>
+            <p class="text-gray-500 text-sm font-medium leading-relaxed">
+              دورات مكثفة وشاملة لاختبارات اللغة الدولية مع مدربين معتمدين.
+            </p>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="flex-1 bg-white p-6 rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-gray-100 hover:border-teal-200 transition-all duration-300 group" data-aos="fade-up" data-aos-delay="600">
+            <div class="w-14 h-14 rounded-2xl bg-teal-50 text-teal-600 flex items-center justify-center mb-4 group-hover:bg-teal-600 group-hover:text-white transition-colors duration-300">
+              <i class="pi pi-file-edit text-2xl"></i>
+            </div>
+            <h3 class="font-extrabold text-[#1a1a1a] text-xl mb-2">خدمات ترجمة</h3>
+            <p class="text-gray-500 text-sm font-medium leading-relaxed">
+              ترجمة معتمدة للمستندات الأكاديمية والقانونية بأعلى دقة.
+            </p>
+          </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="flex flex-wrap items-center gap-4" data-aos="fade-up" data-aos-delay="700">
+          <button (click)="goToCourses()"
+            class="flex items-center gap-3 bg-[#0066CC] hover:bg-blue-700 text-white px-8 py-4 rounded-2xl text-lg font-bold shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 global-btn-glow">
+            <span>استعرض الكورسات</span>
+            <i class="pi pi-arrow-left"></i>
+          </button>
+
+          <button
+            class="px-8 py-4 rounded-2xl text-lg font-bold border-2 border-gray-200 text-gray-700 bg-white hover:border-[#0066CC] hover:text-[#0066CC] transition-all duration-300 hover:-translate-y-1 shadow-sm hover:shadow-md">
+            قدم طلب ترجمة
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

@@ -1,0 +1,30 @@
+@if (visible()) {
+  <div
+    class="fixed inset-0 z-[60] flex items-center justify-center overflow-y-auto overflow-x-hidden bg-black/20 p-4 backdrop-blur-sm transition-all"
+  >
+    <div class="relative w-full max-w-md rounded-lg bg-white shadow-xl ring-1 ring-gray-900/5">
+      <div class="p-6 text-center">
+        @if (icon()) {
+          <div
+            class="mx-auto mb-4 flex items-center justify-center rounded-full bg-white-100 p-2 w-16 h-16 icon-bg"
+          >
+            <i [class]="icon()" class="text-white text-2xl icon"></i>
+          </div>
+        }
+
+        <h3 class="mb-2 text-[30px] font-normal text-black">
+          {{ title() }}
+        </h3>
+        <h3 class="mb-2 text-md font-normal text-gray-500">
+          {{ message() }}
+        </h3>
+
+        <div class="flex justify-center items-center gap-4">
+          <img src="/images/icon/waiting-star.svg" alt="Waiting Star Icon" />
+          <p class="text-[#0066CC]">جاري التحميل...</p>
+          <img src="/images/icon/waiting-star.svg" alt="Waiting Star Icon" />
+        </div>
+      </div>
+    </div>
+  </div>
+}

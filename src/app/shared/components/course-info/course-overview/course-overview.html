@@ -1,0 +1,48 @@
+<section class="space-y-10">
+
+    <!-- Course Description -->
+    <div class="space-y-4 md:space-y-6">
+        <h2 class="text-xl md:text-2xl text-[#101828]">وصف الكورس</h2>
+        <p class="text-sm md:text-base text-[#364153] leading-6 md:leading-7">
+            {{ courseDescription() }}
+        </p>
+    </div>
+
+    <!-- Topics -->
+    @if (course()?.topics?.length) {
+    <div class="space-y-4 md:space-y-6">
+        <h2 class="text-xl md:text-2xl text-[#101828]">ماذا ستتعلم؟</h2>
+        <div
+            class="grid grid-cols-1 sm:grid-cols-2 gap-y-3 md:gap-y-4 gap-x-6 md:gap-x-8 text-sm md:text-base text-[#364153]">
+            @for (topic of course()!.topics; track topic.sort_order) {
+            <div class="flex items-start gap-2">
+                <img src="images/icon/correct.svg" alt="" class="w-5 h-5 mt-1 shrink-0">
+                <div>
+                    <span class="leading-6 font-medium">{{ topic.title }}</span>
+                    <p class="text-xs text-[#4A5565] mt-1">{{ topic.description }} - {{ topic.hours }} ساعة</p>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+    }
+
+    <!-- Schedules -->
+    @if (course()?.schedules?.length) {
+    <div class="space-y-4 md:space-y-6">
+        <h2 class="text-xl md:text-2xl text-[#101828]">مواعيد المحاضرات</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            @for (schedule of course()!.schedules; track schedule.lecture_date) {
+            <div class="flex items-center gap-3 bg-[#F9FAFB] rounded-xl p-3">
+                <i class="fa-regular fa-calendar-days text-[#0066CC]"></i>
+                <div class="flex flex-col">
+                    <span class="text-sm text-[#101828] font-medium">{{ schedule.lecture_date }}</span>
+                    <span class="text-xs text-[#4A5565]">{{ schedule.time_range }}</span>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+    }
+
+</section>

@@ -1,0 +1,173 @@
+<section
+  class="course-hero py-12 px-4 lg:px-8 overflow-hidden bg-gradient-to-b from-[#0066CC] via-[#6B4FBB] to-[#00B2A9] min-h-[668px] text-right flex items-center"
+>
+  <div class="container mx-auto max-w-7xl">
+    <div class="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-8 lg:gap-12 items-start">
+      <!-- ================= LEFT CONTENT ================= -->
+      <div class="course-content flex flex-col gap-6">
+        <!-- Badges -->
+        <div class="flex gap-3 justify-start">
+          <div class="flex items-center bg-white/20 rounded-full px-3 h-7">
+            <span class="text-white text-sm">
+              {{ course()?.extra_details?.level }}
+            </span>
+          </div>
+
+          <div class="flex items-center bg-[#FF6B35] rounded-full px-3 h-7">
+            <span class="text-white text-sm">
+              {{ course()?.extra_details?.language }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Course Title -->
+        <h1 class="text-white text-5xl font-normal leading-tight">
+          {{ course()?.basic_info?.name }}
+        </h1>
+
+        <!-- Description -->
+        <p class="text-[#DBEAFE] text-lg leading-7 max-w-[506px]">
+          {{ course()?.description }}
+        </p>
+
+        <!-- Info Row -->
+        <div class="flex flex-wrap gap-6">
+          <!-- Duration -->
+          <div class="flex items-center gap-2">
+            <div class="w-5 h-5">
+              <img ngSrc="images/icon/timer.svg" width="20" height="20" alt="timer" />
+            </div>
+            <span class="text-white text-base">
+              {{ course()?.basic_info?.duration }}
+            </span>
+          </div>
+
+          <!-- Start Date -->
+          <div class="flex items-center gap-2">
+            <div class="w-5 h-5">
+              <img ngSrc="images/icon/schedule.svg" width="20" height="20" alt="schedule" />
+            </div>
+            <span class="text-white text-base"> يبدأ {{ course()?.basic_info?.start_date }} </span>
+          </div>
+
+          <!-- Max Students -->
+          <div class="flex items-center gap-2">
+            <div class="w-5 h-5">
+              <img ngSrc="images/icon/star.svg" width="20" height="20" alt="students" />
+            </div>
+            <span class="text-white text-base">
+              {{ course()?.extra_details?.max_students }} طالب كحد أقصى
+            </span>
+          </div>
+        </div>
+
+        <!-- Instructor -->
+        <div class="flex items-center gap-4">
+          <div class="flex justify-center items-center w-12 h-12 bg-white/20 rounded-full">
+            <div class="w-6 h-6">
+              <img ngSrc="images/icon/instructor.svg" width="24" height="24" alt="instructor" />
+            </div>
+          </div>
+
+          <div class="flex flex-col">
+            <span class="text-[#DBEAFE] text-sm">المدرب</span>
+            <span class="text-white text-lg">
+              {{ course()?.basic_info?.instructor_name }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= RIGHT CARD ================= -->
+      <div
+        class="course-card w-full lg:w-[384px] bg-white rounded-xl flex flex-col gap-4 p-6 shadow-xl lg:mr-auto"
+      >
+        <!-- Image -->
+        <div class="relative w-full h-48 rounded-lg overflow-hidden">
+          <img src="images/courses.webp" alt="Course Image" class="w-full h-full object-cover" />
+        </div>
+
+        <!-- Price -->
+        <div class="flex flex-col items-center gap-1">
+          <span class="text-[#0066CC] text-3xl font-bold text-center">
+            {{ course()?.basic_info?.price }}
+          </span>
+          <span class="text-gray-500 text-sm text-center">سعر الكورس الكامل</span>
+        </div>
+
+        <!-- Register Button -->
+        <button
+          (click)="isRegisterPanelOpen.set(true)"
+          class="cursor-pointer w-full h-14 bg-gradient-to-r from-[#0066CC] to-[#6B4FBB] text-white rounded-full text-lg font-bold hover:opacity-90 transition-opacity"
+        >
+          سجّل الآن
+        </button>
+
+        <!-- Share / Save -->
+        <!-- <div class="flex gap-3">
+          <button
+            class="flex items-center justify-center gap-2 flex-1 h-10 border border-gray-300 rounded-md hover:bg-gray-50"
+          >
+            <div class="w-4 h-4">
+              <img ngSrc="images/icon/share.svg" width="16" height="16" alt="share" />
+            </div>
+            <span class="cursor-pointer text-gray-900 text-sm font-medium">مشاركة</span>
+          </button>
+
+          <button
+            class="cursor-pointer flex items-center justify-center gap-2 flex-1 h-10 border border-gray-300 rounded-md hover:bg-gray-50"
+          >
+            <div class="w-4 h-4">
+              <img ngSrc="images/icon/save.svg" width="16" height="16" alt="save" />
+            </div>
+            <span class="text-gray-900 text-sm font-medium">حفظ</span>
+          </button>
+        </div> -->
+
+        <!-- Extra Details -->
+        <div class="flex flex-col gap-3 border-t border-gray-100 pt-4">
+          <div class="flex justify-between items-center">
+            <span class="text-gray-400 text-sm">المدة</span>
+            <span class="text-gray-900 text-sm font-medium">
+              {{ course()?.basic_info?.duration }}
+            </span>
+          </div>
+
+          <div class="flex justify-between items-center">
+            <span class="text-gray-400 text-sm">المستوى</span>
+            <span class="text-gray-900 text-sm font-medium">
+              {{ course()?.extra_details?.level }}
+            </span>
+          </div>
+
+          <div class="flex justify-between items-center">
+            <span class="text-gray-400 text-sm">الحد الأقصى للطلاب</span>
+            <span class="text-gray-900 text-sm font-medium">
+              {{ course()?.extra_details?.max_students }} طالب
+            </span>
+          </div>
+
+          <div class="flex justify-between items-center">
+            <span class="text-gray-400 text-sm">آخر موعد للتسجيل</span>
+            <span class="text-gray-900 text-xs font-medium">
+              {{ course()?.extra_details?.registration_deadline }}
+            </span>
+          </div>
+
+          <div class="flex justify-between items-center">
+            <span class="text-gray-400 text-sm">الموقع</span>
+            <span class="text-gray-900 text-xs font-medium">
+              {{ course()?.extra_details?.location?.ar }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-course-register
+    [isOpen]="isRegisterPanelOpen()"
+    [courseId]="courseId()"
+    (closePanel)="isRegisterPanelOpen.set(false)"
+  />
+</section>

@@ -1,0 +1,43 @@
+@if (cards(); as card) {
+  <a
+    [routerLink]="card.link"
+    data-aos="fade-up"
+    class="group flex flex-col bg-white/90 backdrop-blur-xl rounded-[2rem] p-6 lg:p-8 shadow-[0_10px_40px_rgba(0,0,0,0.08)] hover:shadow-[0_20px_50px_rgba(0,102,204,0.15)] transition-all duration-500 hover:-translate-y-3 border border-white/60 hover:border-[#0066CC]/30 h-full relative overflow-hidden"
+  >
+    <!-- Subtle Background Glow -->
+    <div class="absolute inset-0 bg-gradient-to-br from-white via-transparent to-gray-100 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+
+    <div class="relative z-10 flex flex-col h-full">
+      <!-- Icon Container -->
+      <div class="flex justify-between items-start mb-6 lg:mb-8">
+        <div
+          [style.background-color]="card.bgColor"
+          class="w-16 h-16 lg:w-20 lg:h-20 rounded-2xl lg:rounded-3xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-500 group-hover:-rotate-3 global-animate-float"
+        >
+          <img [src]="card.icon" [alt]="card.title" class="w-8 h-8 lg:w-10 lg:h-10 filter drop-shadow-md" />
+        </div>
+        
+        <!-- Arrow top-left (for RTL) -->
+        <div class="w-10 h-10 rounded-full border border-gray-100 bg-gray-50 flex items-center justify-center text-gray-400 group-hover:text-white group-hover:border-[#0066CC] group-hover:bg-[#0066CC] transition-all duration-500 group-hover:-translate-x-1 group-hover:-translate-y-1 shadow-sm">
+          <i class="pi pi-arrow-up-left text-sm"></i>
+        </div>
+      </div>
+      
+      <!-- Text Content -->
+      <h3 class="text-xl lg:text-2xl font-extrabold mb-3 group-hover:text-[#0066CC] transition-colors duration-300 global-text-gradient">{{ card.title }}</h3>
+      
+      <p class="text-gray-500 text-sm lg:text-base leading-relaxed mb-8 flex-grow">
+        {{ card.description }}
+      </p>
+      
+      <!-- Footer Link -->
+      <div class="flex items-center gap-3 text-[#0066CC] font-bold text-sm lg:text-base mt-auto">
+        <span class="relative overflow-hidden">
+          <span class="block transition-transform duration-300 group-hover:-translate-y-full">اعرف أكثر</span>
+          <span class="absolute inset-0 translate-y-full transition-transform duration-300 group-hover:translate-y-0 text-[#00B2A9]">اعرف أكثر</span>
+        </span>
+        <div class="w-8 h-px bg-[#0066CC]/30 group-hover:bg-[#00B2A9]/60 group-hover:w-16 transition-all duration-500"></div>
+      </div>
+    </div>
+  </a>
+}

@@ -1,0 +1,77 @@
+@if (loading()) {
+  <div class="skeleton-table">
+    <div class="skeleton skeleton-row header"></div>
+    <div class="skeleton skeleton-row"></div>
+    <div class="skeleton skeleton-row"></div>
+    <div class="skeleton skeleton-row"></div>
+  </div>
+} @else if (error()) {
+  <div class="error-msg">
+    <i class="pi pi-exclamation-triangle"></i>
+    {{ error() }}
+  </div>
+} @else if (exams().length === 0) {
+  <div class="empty-state">
+    <i class="pi pi-file-excel"></i>
+    <p>لم تقم بالتسجيل في أي امتحانات بعد.</p>
+  </div>
+} @else {
+  <div class="table-responsive">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>اسم الامتحان</th>
+          <th>تاريخ التسجيل</th>
+          <th>موعد الامتحان</th>
+          <th>السعر</th>
+          <th>الحالة</th>
+          <th>الإجراء / النتيجة</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (exam of exams(); track exam.enrollment_id) {
+          <tr>
+            <td class="primary-cell" data-label="اسم الامتحان">
+              <strong>{{ exam.exam_name }}</strong>
+            </td>
+            <td data-label="تاريخ التسجيل">
+              <div class="cell-content">
+                <i class="pi pi-calendar"></i>
+                <span>{{ exam.registered_at | date: 'mediumDate' }}</span>
+              </div>
+            </td>
+            <td dir="ltr" class="text-right" data-label="موعد الامتحان">
+              @if (exam.exam_details) {
+                <div class="cell-content ltr-content">
+                  <i class="pi pi-clock"></i>
+                  <span>{{ exam.exam_details.time_formatted }} - {{ exam.exam_details.day }}</span>
+                </div>
+              } @else {
+                <span class="text-muted">-</span>
+              }
+            </td>
+            <td data-label="السعر">
+              <strong class="price">{{ exam.price | number }} ج.م</strong>
+            </td>
+            <td data-label="الحالة">
+              <span class="status-badge" [ngClass]="'status-' + exam.status">
+                {{ exam.status_label || exam.status }}
+              </span>
+            </td>
+            <td data-label="الإجراء / النتيجة">
+              @if (exam.status === 'approved') {
+                <button class="action-btn primary" (click)="startExam(exam)">
+                  <i class="pi pi-play"></i> دخول
+                </button>
+              } @else if (exam.status === 'completed' && exam.result) {
+                <div class="result-badge">{{ exam.result.percentage | number: '1.0-1' }}%</div>
+              } @else {
+                <span class="text-muted">-</span>
+              }
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+}

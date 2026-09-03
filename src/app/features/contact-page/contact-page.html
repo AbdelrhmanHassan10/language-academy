@@ -1,0 +1,41 @@
+@defer (on viewport) {
+  <app-about-center [servicesAbout]="servicesAbout" />
+} @placeholder {
+  <div class="h-[400px] w-full bg-gray-50 animate-pulse"></div>
+}
+
+<div class="bg-white">
+  @defer (on viewport) {
+    <app-contact-statistics />
+  } @placeholder {
+    <div class="h-64 w-full bg-white animate-pulse"></div>
+  }
+</div>
+
+<div class="bg-gray-50/50">
+  @defer (on viewport) {
+    <app-contact-details />
+  } @placeholder {
+    <div class="h-[600px] w-full bg-gray-50/50 animate-pulse"></div>
+  }
+</div>
+
+<div class="bg-white">
+  @defer (on viewport) {
+    <app-questions
+      [faqs]="faqs()"
+      [pagination]="faqPagination()"
+      [loading]="faqLoading()"
+      [error]="faqError()"
+      (pageChange)="onPageChange($event)"
+    />
+  } @placeholder {
+    <div class="h-[400px] w-full bg-white animate-pulse"></div>
+  }
+</div>
+
+@defer (on viewport) {
+  <app-need-help />
+} @placeholder {
+  <div class="h-64 w-full bg-gray-100 animate-pulse"></div>
+}

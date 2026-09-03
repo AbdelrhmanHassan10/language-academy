@@ -1,0 +1,156 @@
+<section class="profile-page" dir="rtl">
+  <div class="dashboard-container">
+    @if (error()) {
+      <div class="error-banner">
+        <i class="pi pi-exclamation-circle text-lg"></i>
+        <span>{{ error() }}</span>
+      </div>
+    }
+    <div class="profile-banner"></div>
+
+    <div class="dashboard-content">
+      <!-- Right Sidebar (Profile Identity) -->
+      <aside class="dashboard-sidebar">
+        @if (profileData(); as user) {
+          <div class="profile-summary-card">
+            <div class="avatar-wrapper">
+              <div class="avatar">
+                <span class="avatar-text">{{ user.full_name.charAt(0) }}</span>
+              </div>
+            </div>
+
+            <div class="user-meta">
+              <h2 class="user-name">{{ user.full_name }}</h2>
+              <div class="member-badge">
+                <i class="pi pi-verified"></i>
+                عضو مسجل
+              </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="detail-list">
+              <!-- Email -->
+              <div class="detail-item">
+                <div class="detail-icon">
+                  <i class="pi pi-envelope"></i>
+                </div>
+                <div class="detail-text">
+                  <span class="label">البريد الإلكتروني</span>
+                  <span class="value" dir="ltr">{{ user.email }}</span>
+                </div>
+              </div>
+
+              <!-- Phone -->
+              <div class="detail-item">
+                <div class="detail-icon">
+                  <i class="pi pi-phone"></i>
+                </div>
+                <div class="detail-text">
+                  <span class="label">رقم الهاتف</span>
+                  <span class="value" dir="ltr">{{ user.phone }}</span>
+                </div>
+              </div>
+
+              <!-- Join Date -->
+              <div class="detail-item">
+                <div class="detail-icon">
+                  <i class="pi pi-calendar"></i>
+                </div>
+                <div class="detail-text">
+                  <span class="label">تاريخ الانضمام</span>
+                  <span class="value">{{ user.created_at | date: 'mediumDate' }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        } @else if (loading()) {
+          <div class="profile-summary-card skeleton-card">
+            <div class="skeleton-avatar"></div>
+            <div class="skeleton-line-lg"></div>
+            <div class="skeleton-line-md"></div>
+          </div>
+        }
+      </aside>
+
+      <!-- Main Content (Dashboard Overview) -->
+      <main class="dashboard-main">
+        <div class="dashboard-card overview-card">
+          <div class="overview-header">
+            <h3 class="overview-title">مرحباً بك في لوحة التحكم</h3>
+            <p class="overview-subtitle">تصفح سجلاتك وتابع تقدمك في الأكاديمية</p>
+          </div>
+
+          <div class="quick-actions-grid">
+            <button class="action-tile" (click)="openRegistrations('exams')">
+              <div class="tile-icon exams-tile">
+                <i class="pi pi-file-edit"></i>
+              </div>
+              <div class="tile-content">
+                <span class="tile-label">الامتحانات المسجلة</span>
+                <span class="tile-desc">عرض تفاصيل الامتحانات ونتائجك</span>
+              </div>
+              <i class="pi pi-chevron-left tile-arrow"></i>
+            </button>
+
+            <button class="action-tile" (click)="openRegistrations('courses')">
+              <div class="tile-icon courses-tile">
+                <i class="pi pi-book"></i>
+              </div>
+              <div class="tile-content">
+                <span class="tile-label">الكورسات المسجلة</span>
+                <span class="tile-desc">تابع تقدمك في الكورسات المشترك بها</span>
+              </div>
+              <i class="pi pi-chevron-left tile-arrow"></i>
+            </button>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Modal Popup for Registrations (Restored) -->
+    @if (showRegistrationsModal()) {
+      <div class="modal-overlay" (click)="closeRegistrations()">
+        <div class="modal-content" (click)="$event.stopPropagation()">
+          <div class="modal-header">
+            <nav class="modal-tabs">
+              <button
+                class="modal-tab-link"
+                [ngClass]="{ active: activeTab() === 'exams' }"
+                (click)="setTab('exams')"
+              >
+                <i class="pi pi-file-edit"></i>
+                <span>الامتحانات المسجلة</span>
+              </button>
+              <button
+                class="modal-tab-link"
+                [ngClass]="{ active: activeTab() === 'courses' }"
+                (click)="setTab('courses')"
+              >
+                <i class="pi pi-book"></i>
+                <span>الكورسات المسجلة</span>
+              </button>
+            </nav>
+            <button class="modal-close-btn" (click)="closeRegistrations()">
+              <i class="pi pi-times"></i>
+            </button>
+          </div>
+
+          <div class="modal-body">
+            <div class="tab-content-area">
+              @if (activeTab() === 'exams') {
+                <div class="table-container">
+                  <app-student-exams></app-student-exams>
+                </div>
+              } @else if (activeTab() === 'courses') {
+                <div class="table-container">
+                  <app-student-courses></app-student-courses>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</section>

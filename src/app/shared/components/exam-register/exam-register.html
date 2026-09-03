@@ -1,0 +1,85 @@
+@if (isOpen()) {
+<div class="fixed inset-0 z-[100] text-[#101828] bg-black/60 transition-opacity" (click)="close()"
+  style="font-family: 'Cairo', sans-serif;">
+  <div class="fixed inset-0 flex items-center justify-center p-4 lg:p-6" aria-modal="true" role="dialog">
+    <div
+      class="w-full max-w-5xl bg-white rounded-3xl shadow-2xl relative flex flex-col max-h-[95vh] overflow-hidden border-[0.8px] border-[#F3F4F6]"
+      (click)="$event.stopPropagation()">
+
+      <div
+        class="flex items-center justify-between px-10 py-8 border-b border-[#F3F4F6] bg-gradient-to-r from-[#F9FAFB] to-white"
+        dir="rtl">
+        <div class="flex flex-col gap-2">
+          <h2
+            class="text-[28px] font-normal leading-10 text-transparent bg-clip-text bg-linear-to-br from-[#0066CC] via-[#6B4FBB] to-[#00B2A9]">
+            التسجيل في الامتحان
+          </h2>
+          <p class="text-[18px] text-[#4A5565]">املأ البيانات المطلوبة للتسجيل</p>
+        </div>
+        <button (click)="close()"
+          class="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow-sm border border-[#F3F4F6] text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
+          aria-label="إغلاق">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#99A1AF" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <div class="px-10 py-6 overflow-y-auto flex flex-col gap-6" dir="rtl">
+
+        <div
+          class="flex flex-col gap-3 p-[17.6px] bg-linear-to-r from-[#EFF6FF] via-[#FAF5FF] to-[#FDF2F8] border-[1.6px] border-[#DBEAFE] rounded-2xl shadow-sm">
+          <div class="flex items-center gap-3">
+            <div
+              class="w-12 h-12 rounded-full bg-linear-to-b from-[#0066CC] to-[#6B4FBB] flex items-center justify-center text-white shrink-0">
+              <img src="images/icon/container.svg" alt="Exam icon" />
+            </div>
+            <div class="flex flex-col">
+              <p class="text-[14px] text-[#4A5565]">البيانات المطلوبة</p>
+              <p class="text-[18px] text-[#101828]">يرجى تعبئة كافة الحقول بدقة</p>
+            </div>
+          </div>
+        </div>
+
+        @if (errorMessage()) {
+        <div class="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+          {{ errorMessage() }}
+        </div>
+        }
+
+        <div class="flex flex-col gap-4 mt-2">
+          <div class="flex items-center gap-2">
+            <span class="text-[20px] text-[#101828]">اختر الجنسية <span class="text-red-500">*</span></span>
+          </div>
+          <div class="flex gap-4">
+            <button (click)="select('egyptians')"
+              class="cursor-pointer w-61 h-34.75 flex flex-col items-center justify-center gap-3 border-[2.4px] rounded-2xl transition-all"
+              [class]="selectedTab() === 'egyptians' ? 'bg-linear-to-br from-[#EFF6FF] to-[#DBEAFE] border-[#0066CC] shadow-md' : 'bg-white border-[#D1D5DC] hover:bg-gray-50'">
+              <img src="images/eg.png" alt="Egyptian" />
+              <span class="text-[20px] text-[#0A0A0A]">مصري</span>
+            </button>
+
+            <button (click)="select('expatriates')"
+              class="cursor-pointer w-61 h-34.75 flex flex-col items-center justify-center gap-3 border-[2.4px] rounded-2xl transition-all"
+              [class]="selectedTab() === 'expatriates' ? 'bg-linear-to-br from-[#EFF6FF] to-[#DBEAFE] border-[#0066CC] shadow-md' : 'bg-white border-[#D1D5DC] hover:bg-gray-50'">
+              <img src="images/earth.png" alt="Expatriate" />
+              <span class="text-[20px] text-[#0A0A0A]">وافد</span>
+            </button>
+          </div>
+        </div>
+
+        @if (selectedTab() === 'egyptians') {
+        <app-egyptians-registration [exams]="exams()" [defaultExamId]="examId()" [isSubmitting]="isSubmitting()"
+          (formSubmit)="onEgyptianSubmit($event)" />
+        } @else if (selectedTab() === 'expatriates') {
+        <app-expatriate-registration [exams]="exams()" [defaultExamId]="examId()" [isSubmitting]="isSubmitting()"
+          (formSubmit)="onExpatriateSubmit($event)" />
+        }
+
+      </div>
+    </div>
+  </div>
+</div>
+}

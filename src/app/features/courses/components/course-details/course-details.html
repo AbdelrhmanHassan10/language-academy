@@ -1,0 +1,30 @@
+@if (loading()) {
+  <div class="flex justify-center items-center min-h-[60vh]">
+    <div
+      class="w-12 h-12 border-4 border-[#0066CC] border-t-transparent rounded-full animate-spin"
+    ></div>
+  </div>
+}
+
+@if (error()) {
+  <div class="text-center py-20">
+    <i class="fa-solid fa-circle-exclamation text-red-400 text-5xl mb-4"></i>
+    <p class="text-red-500 text-lg">{{ error() }}</p>
+  </div>
+}
+
+@if (courseData(); as course) {
+  <app-course-hero [course]="course" [courseId]="courseId()!"></app-course-hero>
+
+  @defer (on viewport) {
+    <app-course-info [course]="course" [courseId]="courseId()!"></app-course-info>
+  } @placeholder {
+    <h2>loading...</h2>
+  }
+
+  @defer (on viewport) {
+    <app-similar-courses></app-similar-courses>
+  } @placeholder {
+    <h2>loading...</h2>
+  }
+}

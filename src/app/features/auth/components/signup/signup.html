@@ -1,0 +1,302 @@
+@if (isOpen()) {
+<div class="fixed inset-0 z-[100] overflow-y-auto" dir="rtl">
+  <!-- Backdrop -->
+  <div
+    class="fixed inset-0 bg-black/40 animate-backdrop transition-opacity"
+    (click)="!isSubmitting() && !showSuccess() && close()"
+  ></div>
+
+  <!-- Modal Container Wrapper -->
+  <div class="flex min-h-full items-center justify-center p-0 sm:p-6 pointer-events-none" style="perspective: 1200px;">
+    
+    <!-- Modal Content -->
+    <div class="relative w-full max-w-4xl bg-white sm:rounded-[2rem] shadow-2xl flex flex-col lg:flex-row overflow-hidden animate-modal-awesome mt-0 mb-0 sm:mt-6 sm:mb-16 h-[100dvh] sm:h-auto sm:max-h-[90vh] pointer-events-auto">
+       
+      <!-- 🌟 RIGHT SIDE: Premium Branding Banner (Hidden on Mobile) 🌟 -->
+      <div class="hidden lg:flex flex-col justify-between w-5/12 bg-gradient-to-br from-[#003366] via-[#0066CC] to-[#00b2a9] p-8 text-white relative overflow-hidden shrink-0">
+      <!-- Background Decorations -->
+      <div class="absolute -top-24 -right-24 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+      <div class="absolute -bottom-24 -left-24 w-64 h-64 bg-black/20 rounded-full blur-3xl"></div>
+      <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=')] opacity-50 z-0 pointer-events-none"></div>
+
+      <div class="relative z-10">
+        <div class="w-16 h-16 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center mb-8 border border-white/30 shadow-lg stagger-item delay-100">
+          <i class="pi pi-graduation-cap text-3xl text-white"></i>
+        </div>
+        <h2 class="text-4xl font-black leading-tight mb-4 drop-shadow-md stagger-item delay-200">ابدأ رحلتك<br>نحو التفوق!</h2>
+        <p class="text-blue-100 text-lg leading-relaxed mb-8 stagger-item delay-300">
+          انضم إلى مركز اللغات والترجمة وافتح أبواباً جديدة لمستقبلك الأكاديمي والمهني.
+        </p>
+
+        <!-- Benefits List -->
+        <ul class="space-y-4 stagger-item delay-400">
+          <li class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center shrink-0">
+              <i class="pi pi-check text-sm text-green-300"></i>
+            </div>
+            <span class="font-medium text-blue-50">تصفح وسجل في أفضل الكورسات</span>
+          </li>
+          <li class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center shrink-0">
+              <i class="pi pi-check text-sm text-green-300"></i>
+            </div>
+            <span class="font-medium text-blue-50">شهادات معتمدة دولياً ومحلياً</span>
+          </li>
+          <li class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center shrink-0">
+              <i class="pi pi-check text-sm text-green-300"></i>
+            </div>
+            <span class="font-medium text-blue-50">حجز اختبارات TOEFL و IELTS</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="relative z-10 mt-auto pt-12 stagger-item delay-500">
+        <div class="flex items-center gap-4 bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/20">
+          <i class="pi pi-shield text-2xl text-amber-300"></i>
+          <p class="text-sm text-blue-50">منصتنا موثوقة ومعتمدة من المجلس الأعلى للجامعات.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🌟 LEFT SIDE: Form & Interaction Area 🌟 -->
+    <div class="w-full lg:w-7/12 flex flex-col bg-white h-full max-h-full min-h-0">
+      
+      <!-- Sticky Header -->
+      <div class="px-5 py-4 lg:px-10 lg:py-6 border-b border-gray-100 flex justify-between items-center shrink-0 bg-white z-10 stagger-item delay-100">
+        <div>
+          <h2 class="text-2xl font-black text-gray-900">إنشاء حساب جديد</h2>
+          <p class="text-sm text-gray-500 mt-1">أدخل بياناتك للانضمام إلينا</p>
+        </div>
+        <button
+          type="button"
+          (click)="close()"
+          [disabled]="isSubmitting()"
+          class="w-10 h-10 rounded-full bg-gray-50 hover:bg-red-50 text-gray-400 hover:text-red-500 flex items-center justify-center transition-colors focus:outline-none focus:ring-2 focus:ring-red-500/20 disabled:opacity-50"
+        >
+          <i class="pi pi-times text-xl"></i>
+        </button>
+      </div>
+
+      <!-- SUCCESS SCREEN -->
+      @if (showSuccess()) {
+        <div class="flex-1 flex flex-col items-center justify-center p-10 text-center animate-fade-in-up">
+          <div class="w-24 h-24 rounded-full bg-gradient-to-tr from-green-400 to-green-500 flex items-center justify-center shadow-lg shadow-green-200 mb-6 animate-bounce">
+            <i class="pi pi-check text-4xl text-white"></i>
+          </div>
+          <h2 class="text-3xl font-black text-gray-900 mb-3">تم التسجيل بنجاح! 🎉</h2>
+          <p class="text-gray-500 text-lg mb-8">مرحباً بك في منصة مركز اللغات والترجمة</p>
+          <div class="flex items-center gap-3 text-[#0066CC] font-bold bg-blue-50 px-6 py-3 rounded-full">
+            <i class="pi pi-spin pi-spinner text-xl"></i>
+            جاري تحويلك لتسجيل الدخول...
+          </div>
+        </div>
+      } @else {
+        <!-- Scrollable Form Body -->
+        <div class="flex-1 overflow-y-auto elegant-scroll p-5 lg:p-8">
+          <form [formGroup]="registerForm" (ngSubmit)="onSubmit($event)" class="flex flex-col gap-4">
+            
+            <!-- API Error -->
+            @if (apiError()) {
+              <div class="bg-red-50 border-l-4 border-red-500 rounded-r-lg p-4 flex items-start gap-3 animate-fade-in-up">
+                <i class="pi pi-exclamation-triangle text-red-500 mt-0.5"></i>
+                <span class="text-red-700 text-sm font-medium leading-relaxed">{{ apiError() }}</span>
+              </div>
+            }
+
+            <!-- Full Name -->
+            <div class="stagger-item delay-200">
+              <label class="block text-sm font-bold text-gray-700 mb-2">
+                الاسم الكامل <span class="text-red-500">*</span>
+              </label>
+              <div class="relative group">
+                <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-gray-400 group-focus-within:text-[#0066CC] transition-colors">
+                  <i class="pi pi-user"></i>
+                </div>
+                <input
+                  type="text"
+                  formControlName="full_name"
+                  placeholder="ادخل اسمك الرباعي"
+                  (input)="clearApiError()"
+                  class="w-full pr-11 pl-4 py-3 bg-gray-50 border rounded-xl focus:bg-white focus:ring-4 focus:ring-[#0066CC]/10 focus:border-[#0066CC] outline-none transition-all text-gray-800 font-medium placeholder:font-normal placeholder:text-gray-400"
+                  [class.border-red-400]="shouldShowError('full_name')"
+                  [class.border-gray-200]="!shouldShowError('full_name')"
+                />
+              </div>
+              @if (shouldShowError('full_name')) {
+                <p class="mt-1.5 text-sm text-red-500 font-medium animate-fade-in-down"><i class="pi pi-info-circle text-xs ml-1"></i>{{ getErrorMessage('full_name') }}</p>
+              }
+            </div>
+
+            <!-- Email & Phone Row (Grid) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 stagger-item delay-300">
+              <!-- Email -->
+              <div>
+                <label class="block text-sm font-bold text-gray-700 mb-2">
+                  البريد الإلكتروني <span class="text-red-500">*</span>
+                </label>
+                <div class="relative group">
+                  <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-gray-400 group-focus-within:text-[#0066CC] transition-colors">
+                    <i class="pi pi-envelope"></i>
+                  </div>
+                  <input
+                    type="email"
+                    formControlName="email"
+                    placeholder="example@email.com"
+                    (input)="clearApiError()"
+                    class="w-full pr-11 pl-4 py-3.5 bg-gray-50 border rounded-xl focus:bg-white focus:ring-4 focus:ring-[#0066CC]/10 focus:border-[#0066CC] outline-none transition-all text-gray-800 text-left font-medium placeholder:font-normal placeholder:text-gray-400"
+                    dir="ltr"
+                    [class.border-red-400]="shouldShowError('email')"
+                    [class.border-gray-200]="!shouldShowError('email')"
+                  />
+                </div>
+                @if (shouldShowError('email')) {
+                  <p class="mt-1.5 text-sm text-red-500 font-medium animate-fade-in-down"><i class="pi pi-info-circle text-xs ml-1"></i>{{ getErrorMessage('email') }}</p>
+                }
+              </div>
+
+              <!-- Phone -->
+              <div>
+                <label class="block text-sm font-bold text-gray-700 mb-2">
+                  رقم الهاتف <span class="text-red-500">*</span>
+                </label>
+                <div class="relative group">
+                  <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-gray-400 group-focus-within:text-[#0066CC] transition-colors">
+                    <i class="pi pi-phone"></i>
+                  </div>
+                  <input
+                    type="tel"
+                    formControlName="phone"
+                    placeholder="01XXXXXXXXX"
+                    (input)="clearApiError()"
+                    class="w-full pr-11 pl-4 py-3.5 bg-gray-50 border rounded-xl focus:bg-white focus:ring-4 focus:ring-[#0066CC]/10 focus:border-[#0066CC] outline-none transition-all text-gray-800 font-medium placeholder:font-normal placeholder:text-gray-400 text-left"
+                    dir="ltr"
+                    [class.border-red-400]="shouldShowError('phone')"
+                    [class.border-gray-200]="!shouldShowError('phone')"
+                  />
+                </div>
+                @if (shouldShowError('phone')) {
+                  <p class="mt-1.5 text-sm text-red-500 font-medium animate-fade-in-down"><i class="pi pi-info-circle text-xs ml-1"></i>{{ getErrorMessage('phone') }}</p>
+                }
+              </div>
+            </div>
+
+            <!-- Password -->
+            <div class="stagger-item delay-400">
+              <label class="block text-sm font-bold text-gray-700 mb-2">
+                كلمة المرور <span class="text-red-500">*</span>
+              </label>
+              <div class="relative group">
+                <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-gray-400 group-focus-within:text-[#0066CC] transition-colors">
+                  <i class="pi pi-lock"></i>
+                </div>
+                <input
+                  [type]="showPassword() ? 'text' : 'password'"
+                  formControlName="password"
+                  placeholder="••••••••"
+                  (input)="clearApiError()"
+                  class="w-full pr-11 pl-12 py-3.5 bg-gray-50 border rounded-xl focus:bg-white focus:ring-4 focus:ring-[#0066CC]/10 focus:border-[#0066CC] outline-none transition-all text-gray-800 text-left font-medium placeholder:font-normal placeholder:text-gray-400 tracking-wider"
+                  dir="ltr"
+                  [class.border-red-400]="shouldShowError('password')"
+                  [class.border-gray-200]="!shouldShowError('password')"
+                />
+                <!-- Eye Toggle -->
+                <button
+                  type="button"
+                  (click)="togglePassword()"
+                  class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors p-2 rounded-lg hover:bg-gray-100"
+                >
+                  <i class="pi" [class.pi-eye]="!showPassword()" [class.pi-eye-slash]="showPassword()"></i>
+                </button>
+              </div>
+              @if (shouldShowError('password')) {
+                <p class="mt-1.5 text-sm text-red-500 font-medium animate-fade-in-down"><i class="pi pi-info-circle text-xs ml-1"></i>{{ getErrorMessage('password') }}</p>
+              }
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="stagger-item delay-500">
+              <label class="block text-sm font-bold text-gray-700 mb-2">
+                تأكيد كلمة المرور <span class="text-red-500">*</span>
+              </label>
+              <div class="relative group">
+                <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-gray-400 group-focus-within:text-[#0066CC] transition-colors">
+                  <i class="pi pi-shield"></i>
+                </div>
+                <input
+                  [type]="showConfirmPassword() ? 'text' : 'password'"
+                  formControlName="password_confirmation"
+                  placeholder="••••••••"
+                  (input)="clearApiError()"
+                  class="w-full pr-11 pl-12 py-3.5 bg-gray-50 border rounded-xl focus:bg-white focus:ring-4 focus:ring-[#0066CC]/10 focus:border-[#0066CC] outline-none transition-all text-gray-800 text-left font-medium placeholder:font-normal placeholder:text-gray-400 tracking-wider"
+                  dir="ltr"
+                  [class.border-red-400]="shouldShowError('password_confirmation')"
+                  [class.border-gray-200]="!shouldShowError('password_confirmation')"
+                />
+                <!-- Eye Toggle -->
+                <button
+                  type="button"
+                  (click)="toggleConfirmPassword()"
+                  class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors p-2 rounded-lg hover:bg-gray-100"
+                >
+                  <i class="pi" [class.pi-eye]="!showConfirmPassword()" [class.pi-eye-slash]="showConfirmPassword()"></i>
+                </button>
+              </div>
+              @if (shouldShowError('password_confirmation')) {
+                <p class="mt-1.5 text-sm text-red-500 font-medium animate-fade-in-down"><i class="pi pi-info-circle text-xs ml-1"></i>{{ getErrorMessage('password_confirmation') }}</p>
+              }
+            </div>
+
+            <!-- Mobile Only Benefits -->
+            <div class="lg:hidden mt-4 bg-[#F4F9FF] rounded-xl p-4 border border-blue-100 stagger-item delay-600">
+              <h3 class="text-sm font-bold text-[#0066CC] mb-3 flex items-center gap-2">
+                <i class="pi pi-star-fill text-amber-400"></i> مميزات الحساب
+              </h3>
+              <div class="flex flex-wrap gap-2 text-xs font-medium text-gray-600">
+                <span class="bg-white px-3 py-1.5 rounded-lg border border-blue-50 shadow-sm flex items-center gap-1.5">
+                  <i class="pi pi-check text-green-500"></i> التسجيل بالكورسات
+                </span>
+                <span class="bg-white px-3 py-1.5 rounded-lg border border-blue-50 shadow-sm flex items-center gap-1.5">
+                  <i class="pi pi-check text-green-500"></i> حجز الاختبارات
+                </span>
+              </div>
+            </div>
+
+          </form>
+        </div>
+
+        <!-- Sticky Footer -->
+        <div class="px-5 py-4 lg:px-10 lg:py-6 border-t border-gray-100 bg-gray-50 flex flex-col sm:flex-row justify-between items-center gap-4 shrink-0 z-10 stagger-item delay-600 lg:delay-700">
+          
+          <p class="text-sm text-gray-600 font-medium order-2 sm:order-1">
+            لديك حساب بالفعل؟
+            <button
+              type="button"
+              class="text-[#0066CC] hover:text-[#004C99] font-black border-b-2 border-transparent hover:border-[#0066CC] transition-all mr-1 focus:outline-none"
+              (click)="closeSignUpAndOpenSignIn($event)"
+            >
+              تسجيل الدخول
+            </button>
+          </p>
+
+          <button
+            type="submit"
+            (click)="onSubmit($event)"
+            [disabled]="isSubmitting()"
+            class="w-full sm:w-auto order-1 sm:order-2 bg-gradient-to-r from-[#0066CC] to-[#00B2A9] hover:opacity-90 text-white font-bold py-3.5 px-10 rounded-xl shadow-[0_10px_20px_rgba(0,102,204,0.2)] hover:shadow-[0_15px_25px_rgba(0,102,204,0.3)] transition-all hover:-translate-y-0.5 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-4 focus:ring-[#0066CC]/30"
+          >
+            @if (isSubmitting()) {
+              <i class="pi pi-spin pi-spinner text-xl"></i>
+              <span>جاري التسجيل...</span>
+            } @else {
+              <span class="text-lg">إنشاء حساب</span>
+              <i class="pi pi-arrow-left"></i>
+            }
+          </button>
+        </div>
+      }
+    </div>
+  </div>
+  </div>
+</div>
+}

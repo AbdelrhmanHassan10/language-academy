@@ -1,0 +1,41 @@
+@defer (on viewport) {
+  <app-about-center [servicesAbout]="AboutData" />
+} @placeholder {
+  <h2>loading...</h2>
+}
+<div class="px-5 md:px-[80px] lg:px-[130px]">
+  @defer (on viewport) {
+    <app-about-statistics />
+  } @placeholder {
+    <h2>loading...</h2>
+  }
+
+  @defer (on viewport) {
+    <app-about-who />
+  } @placeholder {
+    <h2>loading...</h2>
+  }
+
+  @defer (on viewport) {
+    <app-our-message />
+  } @placeholder {
+    <h2>loading...</h2>
+  }
+
+</div>
+ @defer (on viewport) {
+    <app-excellent-path />
+  }
+  @placeholder {
+    <h2>loading...</h2>
+  }
+  @defer (on viewport) {
+    <app-what-makes-us-different />
+  } @placeholder {
+    <h2>loading...</h2>
+  }
+  @defer (on viewport) {
+    <app-certification-section />
+  } @placeholder {
+    <h2>loading...</h2>
+  }

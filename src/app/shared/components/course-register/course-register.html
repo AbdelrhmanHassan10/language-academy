@@ -1,0 +1,155 @@
+@if (isOpen()) {
+  <div
+    class="fixed inset-0 z-[100] text-[#101828] bg-black/60 transition-opacity"
+    (click)="close()"
+    style="font-family: 'Cairo', sans-serif"
+  >
+    <div
+      class="fixed inset-0 flex items-center justify-center p-4 lg:p-6"
+      aria-modal="true"
+      role="dialog"
+    >
+      <div
+        class="w-full max-w-[1024px] bg-white rounded-[24px] shadow-2xl relative flex flex-col max-h-[95vh] overflow-hidden border-[0.8px] border-[#F3F4F6]"
+        (click)="$event.stopPropagation()"
+      >
+        <!-- Header -->
+        <div
+          class="flex items-center justify-between px-10 py-8 border-b border-[#F3F4F6] bg-white"
+          dir="rtl"
+        >
+          <div class="flex flex-col gap-2">
+            <h2 class="text-[28px] font-bold leading-[40px] text-[#0066CC]">
+              التسجيل في الكورس
+            </h2>
+            <p class="text-[18px] text-[#4A5565]">املأ البيانات المطلوبة للتسجيل</p>
+          </div>
+          <button
+            (click)="close()"
+            class="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow-sm border border-[#F3F4F6] text-gray-400 hover:shadow-2xl transition-colors cursor-pointer"
+            aria-label="إغلاق"
+          >
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#99A1AF"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Content Area -->
+        <div
+          (scroll)="onScroll()"
+          #scrollContainer
+          data-lenis-prevent="true"
+          class="px-10 py-6 overflow-y-auto flex flex-col gap-6 elegant-scroll overscroll-contain"
+          style="-webkit-overflow-scrolling: touch; touch-action: pan-y;"
+          dir="rtl"
+        >
+          <!-- Selected Course Section -->
+          <div
+            class="flex flex-col gap-3 p-5 bg-[#F8FAFC] border border-[#E2E8F0] rounded-2xl shadow-sm"
+          >
+            <div class="flex items-center gap-3">
+              <div
+                class="w-12 h-12 rounded-full bg-[#0066CC] flex items-center justify-center text-white shrink-0 shadow-md"
+              >
+                <img src="images/icon/container.svg" alt="" />
+              </div>
+              <div class="flex flex-col">
+                <p class="text-[14px] font-medium text-[#64748B]">الكورس المختار</p>
+                <p class="text-[18px] font-bold text-[#0F172A]">دورة اللغة الإنجليزية - المستوى الأول</p>
+              </div>
+            </div>
+
+            <div
+              class="bg-white rounded-xl py-3 px-4 flex gap-2 items-center mt-2 w-full border border-gray-100 shadow-sm"
+            >
+              <p class="text-[14px] font-bold text-[#475569]">السعر:</p>
+              <p class="text-[24px] font-extrabold text-[#0066CC]">1,200 جنيه</p>
+            </div>
+          </div>
+
+          <!-- Nationality -->
+          <div class="flex flex-col gap-4 mt-2">
+            <div class="flex items-center gap-2">
+              <span class="text-[20px] font-bold text-[#101828]"
+                >اختر الجنسية <span class="text-red-500">*</span></span
+              >
+            </div>
+            <div class="flex gap-4">
+              <!-- Egyptian Button -->
+              <button
+                (click)="select('egyptians')"
+                class="cursor-pointer w-full max-w-[244px] h-[139px] flex flex-col items-center justify-center gap-3 border-[2px] rounded-2xl transition-all"
+                [class]="
+                  selectedTab() === 'egyptians'
+                    ? 'bg-[#EFF6FF] border-[#0066CC] shadow-md'
+                    : 'bg-white border-[#D1D5DC] hover:bg-gray-50'
+                "
+              >
+                <img src="images/eg.png" alt="" />
+                <span class="text-[20px] font-bold text-[#0A0A0A]">مصري</span>
+              </button>
+              <!-- Foreigner Button -->
+              <button
+                (click)="select('expatriates')"
+                class="cursor-pointer w-full max-w-[244px] h-[139px] flex flex-col items-center justify-center gap-3 border-[2px] rounded-2xl transition-all"
+                [class]="
+                  selectedTab() === 'expatriates'
+                    ? 'bg-[#EFF6FF] border-[#0066CC] shadow-md'
+                    : 'bg-white border-[#D1D5DC] hover:bg-gray-50'
+                "
+              >
+                <img src="images/earth.png" alt="" />
+                <span class="text-[20px] font-bold text-[#0A0A0A]">وافد</span>
+              </button>
+            </div>
+          </div>
+
+          @if (selectedTab() === 'egyptians') {
+            <app-egyptians-registration
+              [isSubmitting]="isSubmitting()"
+              (formSubmit)="onEgyptianSubmit($event)"
+            ></app-egyptians-registration>
+          } @else if (selectedTab() === 'expatriates') {
+            <app-expatriate-registration
+              [isSubmitting]="isSubmitting()"
+              (formSubmit)="onExpatriateSubmit($event)"
+            ></app-expatriate-registration>
+          }
+
+          <!-- ✅ Floating Arrow -->
+          @if (showScrollArrow()) {
+            <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 pointer-events-none">
+              <div
+                class="w-9 h-9 rounded-full bg-[#777] flex items-center justify-center shadow-lg animate-bounce"
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="white"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <polyline points="6 9 12 15 18 9" transform="rotate(360 12 12)"></polyline>
+                </svg>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+}

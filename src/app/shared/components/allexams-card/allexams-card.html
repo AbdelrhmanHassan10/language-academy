@@ -1,0 +1,300 @@
+<section class="container mx-auto p-6 lg:p-12">
+  <!-- ═══════ Loading ═══════ -->
+  @if (loading()) {
+    <div class="flex justify-center items-center py-20">
+      <div
+        class="w-14 h-14 border-4 border-[#0066CC]/30 border-t-[#0066CC] rounded-full animate-spin"
+      ></div>
+    </div>
+  }
+
+  <!-- ═══════ Error ═══════ -->
+  @if (error()) {
+    <div class="text-center py-16 animate-fade-in-up">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-20 h-20 mx-auto mb-6 text-red-400 opacity-80"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="1.5"
+          d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374
+                         1.948 3.374h14.71c1.73 0 2.813-1.874
+                         1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5
+                         -3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"
+        />
+      </svg>
+      <p class="text-red-500 mb-6 font-medium text-lg">{{ error() }}</p>
+      <button (click)="loadExams()" class="bg-gradient-to-r from-[#0066CC] to-[#004C99] text-white px-8 py-3 rounded-full font-bold hover:shadow-[0_8px_20px_rgba(0,102,204,0.3)] transition-all hover:-translate-y-1">
+        إعادة المحاولة
+      </button>
+    </div>
+  }
+
+  <!-- ═══════ Exams Grid ═══════ -->
+  @if (!loading() && !error()) {
+    <div>
+      <!-- Header -->
+      <div class="flex justify-between items-end mb-10 relative px-4 text-start" data-aos="fade-down" data-aos-duration="800">
+        <div class="me-10">
+          <h2 class="font-extrabold text-4xl mb-3 global-text-gradient">
+            @if (search()) {
+              نتائج البحث عن "<span class="text-[#0066CC]">{{ search() }}</span>"
+            } @else {
+              الاختبارات <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#0066CC] to-[#00B2A9]">المتاحة</span>
+            }
+          </h2>
+          <p class="text-gray-500 text-base font-medium m-3">اختر الامتحان المناسب لمستواك وانطلق نحو التميز</p>
+        </div>
+        <div class="absolute -left-2 top-0 opacity-20">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-16 h-16 text-[#0066CC]"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1"
+              d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25
+                                 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098
+                                 -1.976-2.192a48.424 48.424 0 00-1.123-.08m
+                                 -5.801 0c-.065.21-.1.433-.1.664 0 .414.336
+                                 .75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25
+                                 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5
+                                 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8
+                                 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25
+                                 4.973 8.25 6.108V8.25m0 0H4.875c-.621
+                                 0-1.125.504-1.125 1.125v11.25c0 .621.504
+                                 1.125 1.125 1.125h9.75c.621 0 1.125-.504
+                                 1.125-1.125V9.375c0-.621-.504-1.125
+                                 -1.125-1.125H8.25z"
+            />
+          </svg>
+        </div>
+      </div>
+
+      <!-- Results count -->
+      <div class="mb-8 px-4" data-aos="fade-up" data-aos-delay="200" data-aos-duration="800">
+        <span class="inline-flex items-center gap-2 bg-blue-50/80 text-[#0066CC] border border-blue-100 px-4 py-1.5 rounded-full text-sm font-bold shadow-sm global-btn-glow">
+          <i class="pi pi-filter"></i>
+          @if (search()) {
+            {{ filteredExams().length }} نتيجة من أصل {{ allExams().length }} امتحان
+          } @else {
+            {{ allExams().length }} امتحان متاح
+          }
+        </span>
+      </div>
+
+      <!-- Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        @for (exam of filteredExams(); track exam.id; let i = $index) {
+          <div
+            (click)="onExamCardClick(exam)"
+            data-aos="zoom-in-up" [attr.data-aos-delay]="(i % 3) * 150" data-aos-duration="800"
+            class="group bg-white rounded-3xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-gray-100 flex flex-col transition-all duration-500 hover:shadow-[0_20px_40px_-15px_rgba(0,102,204,0.2)] hover:border-[#0066CC]/30 hover:-translate-y-2 cursor-pointer relative"
+          >
+            <!-- Card top -->
+            <div
+              class="relative h-48 bg-gradient-to-br from-[#0066CC] via-[#0055AA] to-[#6B4FBB] flex items-center justify-center overflow-hidden"
+            >
+              <!-- Decorative elements -->
+              <div class="absolute top-0 right-0 w-32 h-32 rounded-full bg-white/10 blur-2xl transform translate-x-10 -translate-y-10 group-hover:scale-150 transition-transform duration-700"></div>
+              <div class="absolute bottom-0 left-0 w-24 h-24 rounded-full bg-white/10 blur-xl transform -translate-x-10 translate-y-10"></div>
+
+              <div class="relative z-10 flex flex-col items-center gap-3">
+                <div class="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center shadow-[0_8px_30px_rgba(0,0,0,0.12)] border border-white/20 group-hover:scale-110 transition-transform duration-500 global-animate-float">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="w-10 h-10 text-white"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="1.5"
+                      d="M9 12h3.75M9 15h3.75M9
+                                                 18h3.75m3 .75H18a2.25 2.25
+                                                 0 002.25-2.25V6.108c0-1.135
+                                                 -.845-2.098-1.976-2.192a48.424
+                                                 48.424 0 00-1.123-.08m-5.801
+                                                 0c-.065.21-.1.433-.1.664 0
+                                                 .414.336.75.75.75h4.5a.75.75
+                                                 0 00.75-.75 2.25 2.25 0
+                                                 00-.1-.664m-5.8 0A2.251 2.251
+                                                 0 0113.5 2.25H15c1.012 0
+                                                 1.867.668 2.15 1.586m-5.8
+                                                 0c-.376.023-.75.05-1.124.08
+                                                 C9.095 4.01 8.25 4.973 8.25
+                                                 6.108V8.25m0 0H4.875c-.621
+                                                 0-1.125.504-1.125 1.125v11.25
+                                                 c0 .621.504 1.125 1.125
+                                                 1.125h9.75c.621 0 1.125-.504
+                                                 1.125-1.125V9.375c0-.621
+                                                 -.504-1.125-1.125-1.125H8.25z"
+                    />
+                  </svg>
+                </div>
+                <span class="text-white/90 text-sm font-bold bg-black/10 px-3 py-1 rounded-full backdrop-blur-sm"> اختبار دولي </span>
+              </div>
+
+              <span
+                class="absolute top-4 right-4 bg-white/20 backdrop-blur-md text-white font-bold text-[11px] px-3 py-1.5 rounded-full border border-white/20"
+              >
+                # {{ exam.id }}
+              </span>
+            </div>
+
+            <!-- Card body -->
+            <div class="p-6 grow text-right flex flex-col">
+              <h3 class="text-[#1a1a1a] group-hover:text-[#0066CC] font-bold text-xl mb-4 leading-tight transition-colors">
+                {{ exam.name }}
+              </h3>
+
+              <!-- Enrollment status banner -->
+              @if (isCheckingEnrollment()) {
+                <div class="flex items-center gap-2 text-gray-400 text-sm mb-4 bg-gray-50 p-2 rounded-lg">
+                  <span
+                    class="w-4 h-4 border-2 border-gray-300 border-t-transparent rounded-full animate-spin"
+                  >
+                  </span>
+                  <span class="font-medium">جاري التحقق...</span>
+                </div>
+              } @else if (isRegisteredForExam()) {
+                <div class="mb-4">
+                  <span
+                    class="text-xs px-3 py-1.5 rounded-full font-bold border"
+                    [class]="
+                      enrollmentStatus() === ExamStatus.PENDING
+                        ? 'bg-amber-50 text-amber-700 border-amber-200'
+                        : enrollmentStatus() === ExamStatus.APPROVED
+                          ? 'bg-green-50 text-green-700 border-green-200'
+                          : enrollmentStatus() === ExamStatus.REJECTED
+                            ? 'bg-red-50 text-red-700 border-red-200'
+                            : 'bg-gray-50 text-gray-600 border-gray-200'
+                    "
+                  >
+                    {{ enrollmentStatusLabel() || 'مسجّل' }}
+                  </span>
+                </div>
+              }
+
+              <div class="space-y-3 mt-auto">
+                <div class="flex items-center gap-3 flex-row-reverse text-gray-500 group-hover:text-gray-700 transition-colors">
+                  <div class="w-6 h-6 rounded-full bg-blue-50 flex items-center justify-center shrink-0">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="w-3.5 h-3.5 text-[#0066CC]"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  </div>
+                  <span class="text-xs font-bold">امتحان معتمد دولياً</span>
+                </div>
+                <div class="flex items-center gap-3 flex-row-reverse text-gray-500 group-hover:text-gray-700 transition-colors">
+                  <div class="w-6 h-6 rounded-full bg-blue-50 flex items-center justify-center shrink-0">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="w-3.5 h-3.5 text-[#0066CC]"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  </div>
+                  <span class="text-xs font-bold">متاح للتسجيل الآن</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card footer -->
+            <div class="p-6 pt-0 mt-auto">
+              <div class="border-t border-gray-100 pt-5 flex justify-between items-center">
+                <span
+                  class="bg-gray-50 group-hover:bg-gradient-to-r group-hover:from-[#0066CC] group-hover:to-[#004C99] text-gray-700 group-hover:text-white text-sm font-bold px-6 py-2.5 rounded-full transition-all duration-300 shadow-sm group-hover:shadow-[0_8px_16px_rgba(0,102,204,0.25)]"
+                >
+                  @if (isRegisteredForExam()) {
+                    عرض الحالة
+                  } @else {
+                    سجّل الآن
+                  }
+                  <i class="pi pi-arrow-left ml-2 inline-block -rotate-45 group-hover:-translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
+                </span>
+                <div class="flex items-center gap-1.5 bg-orange-50 px-3 py-1.5 rounded-full border border-orange-100">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="w-3.5 h-3.5 text-[#FF7E3E]"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M11.645 20.91l-.007-.003
+                                                 -.022-.012a15.247 15.247
+                                                 0 01-.383-.218 25.18 25.18
+                                                 0 01-4.244-3.17C4.688
+                                                 15.36 2.25 12.174 2.25
+                                                 8.25 2.25 5.322 4.714 3
+                                                 7.688 3A5.5 5.5 0 0112
+                                                 5.052 5.5 5.5 0 0116.313
+                                                 3c2.973 0 5.437 2.322
+                                                 5.437 5.25 0 3.925-2.438
+                                                 7.111-4.739 9.256a25.175
+                                                 25.175 0 01-4.244 3.17
+                                                 15.247 15.247 0 01-.383
+                                                 .219l-.022.012-.007.004
+                                                 -.003.001a.752.752 0
+                                                 01-.704 0l-.003-.001z"
+                    />
+                  </svg>
+                  <span class="text-[#FF7E3E] text-[11px] font-bold"> مميز </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        } @empty {
+          <div class="col-span-3 text-center py-24 text-gray-400 bg-gray-50 rounded-3xl border border-gray-100 border-dashed animate-fade-in-up">
+            @if (search()) {
+              <i class="pi pi-search text-4xl mb-4 text-gray-300"></i>
+              <p class="text-xl font-bold text-gray-500 mb-2">لا توجد نتائج لـ "{{ search() }}"</p>
+              <p class="text-sm text-gray-400">جرب كلمة بحث مختلفة</p>
+            } @else {
+              <i class="pi pi-inbox text-4xl mb-4 text-gray-300"></i>
+              <p class="text-xl font-bold text-gray-500">لا توجد امتحانات متاحة حالياً</p>
+            }
+          </div>
+        }
+      </div>
+    </div>
+  }
+</section>
+
+<!-- ═══════ Exam Register Modal ═══════ -->
+<app-exam-register
+  [isOpen]="isExamEnrollOpen()"
+  [examId]="selectedExamId()"
+  [examTitle]="selectedExamTitle()"
+  (closePanel)="closeExamEnroll()"
+  (enrolled)="onExamEnrolled($event)"
+/>

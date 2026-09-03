@@ -1,0 +1,181 @@
+<section class="py-16 lg:py-24" dir="rtl">
+  <div class="container mx-auto max-w-[1400px] px-4 md:px-8">
+    
+    <!-- ═══════ Main Content: Form & Maps ═══════ -->
+    <div class="flex flex-col lg:flex-row gap-10 lg:gap-16 items-start">
+      
+      <!-- Right Side (Form) -->
+      <div class="w-full lg:w-1/2" data-aos="fade-left" data-aos-duration="1000">
+        <div class="bg-white rounded-[2.5rem] p-8 md:p-12 shadow-[0_8px_40px_rgb(0,0,0,0.04)] border border-gray-100 relative overflow-hidden">
+          
+          <!-- Decorative Background Blur -->
+          <div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-[#0066CC]/5 to-[#00B2A9]/5 rounded-full blur-3xl -z-10 pointer-events-none"></div>
+
+          <h2 class="text-[#1e293b] font-extrabold text-3xl md:text-4xl mb-3">أرسل لنا رسالة</h2>
+          <p class="text-[#64748B] text-base md:text-lg font-medium mb-10">
+            يسعدنا تواصلك معنا، املأ النموذج وسنقوم بالرد عليك في أقرب وقت
+          </p>
+
+          <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="space-y-6">
+            
+            <!-- Full Name -->
+            <div class="relative">
+              <label class="block text-sm font-bold text-[#1e293b] mb-2">الاسم الكامل <span class="text-red-500">*</span></label>
+              <div class="relative">
+                <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
+                  <img src="/images/icon/instructor.svg" class="w-5 h-5 opacity-40 brightness-0" />
+                </div>
+                <input type="text" formControlName="full_name" placeholder="أدخل اسمك الكامل"
+                  class="w-full bg-[#F8FAFC] border border-transparent focus:bg-white focus:border-[#0066CC] focus:ring-4 focus:ring-blue-500/10 rounded-2xl py-3.5 pr-12 pl-4 text-[#1e293b] placeholder:text-gray-400 font-medium transition-all duration-300" />
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div class="relative">
+              <label class="block text-sm font-bold text-[#1e293b] mb-2">البريد الإلكتروني <span class="text-red-500">*</span></label>
+              <div class="relative">
+                <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
+                  <img src="/images/icon/email.svg" class="w-5 h-5 opacity-40 brightness-0" />
+                </div>
+                <input type="email" formControlName="email" placeholder="example@domain.com"
+                  class="w-full bg-[#F8FAFC] border border-transparent focus:bg-white focus:border-[#0066CC] focus:ring-4 focus:ring-blue-500/10 rounded-2xl py-3.5 pr-12 pl-4 text-[#1e293b] placeholder:text-gray-400 font-medium transition-all duration-300" />
+              </div>
+            </div>
+
+            <!-- Phone -->
+            <div class="relative">
+              <label class="block text-sm font-bold text-[#1e293b] mb-2">رقم الهاتف <span class="text-red-500">*</span></label>
+              <div class="relative">
+                <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
+                  <img src="/images/icon/telephone.svg" class="w-5 h-5 opacity-40 brightness-0" />
+                </div>
+                <input type="tel" formControlName="phone" placeholder="01XXXXXXXXX"
+                  class="w-full bg-[#F8FAFC] border border-transparent focus:bg-white focus:border-[#0066CC] focus:ring-4 focus:ring-blue-500/10 rounded-2xl py-3.5 pr-12 pl-4 text-[#1e293b] placeholder:text-gray-400 font-medium transition-all duration-300" />
+              </div>
+            </div>
+
+            <!-- Subject -->
+            <div class="relative">
+              <label class="block text-sm font-bold text-[#1e293b] mb-2">الموضوع <span class="text-red-500">*</span></label>
+              <div class="relative">
+                <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
+                  <img src="/images/icon/book-3.svg" class="w-5 h-5 opacity-40 brightness-0" />
+                </div>
+                <input type="text" formControlName="subject" placeholder="عن ماذا تستفسر؟"
+                  class="w-full bg-[#F8FAFC] border border-transparent focus:bg-white focus:border-[#0066CC] focus:ring-4 focus:ring-blue-500/10 rounded-2xl py-3.5 pr-12 pl-4 text-[#1e293b] placeholder:text-gray-400 font-medium transition-all duration-300" />
+              </div>
+            </div>
+
+            <!-- Message -->
+            <div class="relative">
+              <label class="block text-sm font-bold text-[#1e293b] mb-2">الرسالة <span class="text-red-500">*</span></label>
+              <div class="relative">
+                <div class="absolute top-4 right-0 flex items-start pr-4 pointer-events-none">
+                  <img src="/images/icon/envelope.svg" class="w-5 h-5 opacity-40 brightness-0" />
+                </div>
+                <textarea rows="4" formControlName="message" placeholder="اكتب رسالتك وتفاصيل استفسارك هنا..."
+                  class="w-full bg-[#F8FAFC] border border-transparent focus:bg-white focus:border-[#0066CC] focus:ring-4 focus:ring-blue-500/10 rounded-2xl py-3.5 pr-12 pl-4 text-[#1e293b] placeholder:text-gray-400 font-medium transition-all duration-300 resize-none"></textarea>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" [disabled]="contactForm.invalid"
+              class="w-full py-4 bg-gradient-to-r from-[#0066CC] to-[#00B2A9] text-white rounded-2xl font-bold text-lg hover:shadow-[0_10px_25px_rgba(0,102,204,0.3)] hover:-translate-y-1 transition-all duration-300 disabled:bg-none disabled:bg-gray-300 disabled:shadow-none disabled:translate-y-0 disabled:cursor-not-allowed flex justify-center items-center gap-3">
+              <span>إرسال الرسالة</span>
+              <i class="pi pi-send"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Left Side (Map & Departments) -->
+      <div class="w-full lg:w-1/2 flex flex-col gap-8" data-aos="fade-right" data-aos-duration="1000">
+        
+        <!-- Google Map -->
+        <div class="rounded-[2.5rem] overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 h-[300px] relative group">
+          <div class="absolute inset-0 bg-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10 mix-blend-overlay"></div>
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d13947.239430487698!2d31.0986099!3d29.0817632!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x145a2614b4ef4be7%3A0x44c89eb7a44623ae!2z2KzYp9mF2LnYqSDYqNmG2Yog2LPZiNmK2YE!5e0!3m2!1sar!2seg!4v1772832461077!5m2!1sar!2seg"
+            class="w-full h-full relative z-0" loading="lazy">
+          </iframe>
+        </div>
+
+        <!-- Specialized Departments -->
+        <div class="bg-white rounded-[2.5rem] p-8 md:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100">
+          <div class="flex items-center gap-3 mb-8">
+            <div class="w-12 h-12 rounded-2xl bg-[#0066CC]/10 text-[#0066CC] flex items-center justify-center">
+              <i class="pi pi-building text-xl"></i>
+            </div>
+            <h2 class="text-2xl font-extrabold text-[#1e293b]">الأقسام المتخصصة</h2>
+          </div>
+
+          <div class="flex flex-col gap-4">
+            @for (dept of specialDepartments(); track dept.id) {
+              <div class="flex items-center p-4 rounded-2xl bg-[#F8FAFC] border border-gray-100 hover:border-blue-200 hover:bg-blue-50/50 transition-colors group">
+                
+                <div class="w-14 h-14 shrink-0 rounded-2xl bg-gradient-to-br from-[#0066CC] to-blue-500 flex items-center justify-center ml-5 shadow-sm group-hover:shadow-md transition-shadow">
+                  <img [src]="dept.icon" class="w-6 h-6 brightness-0 invert object-contain" />
+                </div>
+
+                <div class="flex-1 text-right">
+                  <h3 class="font-bold text-lg text-[#1e293b] mb-1 group-hover:text-[#0066CC] transition-colors">
+                    {{ dept.name }}
+                  </h3>
+                  <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 text-[#64748B] text-sm font-medium">
+                    <div class="flex items-center gap-2">
+                      <i class="pi pi-phone text-[#0066CC]"></i>
+                      <span dir="ltr">{{ dept.phone }}</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <i class="pi pi-envelope text-[#00B2A9]"></i>
+                      <span>{{ dept.email }}</span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════ Facebook Banner ═══════ -->
+    <div class="mt-20" data-aos="zoom-in" data-aos-duration="1000">
+      <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" class="block group">
+        <div class="relative bg-gradient-to-br from-[#0066CC] via-[#0055AA] to-[#004C99] rounded-[3rem] p-10 md:p-14 shadow-[0_20px_50px_rgba(0,102,204,0.3)] overflow-hidden flex flex-col md:flex-row items-center justify-between gap-10 transform transition-transform duration-500 group-hover:-translate-y-2">
+          
+          <!-- Animated Background Elements -->
+          <div class="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl transform translate-x-20 -translate-y-20 group-hover:scale-110 transition-transform duration-700"></div>
+          <div class="absolute bottom-0 left-0 w-64 h-64 bg-[#00B2A9]/20 rounded-full blur-3xl transform -translate-x-10 translate-y-10 group-hover:scale-110 transition-transform duration-700"></div>
+
+          <div class="relative z-10 flex items-center gap-6 md:gap-10">
+            <!-- Giant Icon -->
+            <div class="w-20 h-20 md:w-28 md:h-28 bg-white text-[#0066CC] rounded-full flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform duration-500 shrink-0">
+              <svg class="w-10 h-10 md:w-14 md:h-14" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+              </svg>
+            </div>
+            
+            <div class="text-right text-white">
+              <h3 class="text-3xl md:text-5xl font-black mb-3">تابعنا على فيسبوك</h3>
+              <p class="text-white/80 text-lg md:text-xl font-medium max-w-xl">
+                انضم إلى مجتمعنا وكن أول من يعلم عن أحدث الأخبار والدورات التدريبية والعروض الحصرية
+              </p>
+            </div>
+          </div>
+
+          <!-- CTA Button -->
+          <div class="relative z-10 shrink-0 w-full md:w-auto">
+            <div class="bg-white text-[#0066CC] px-10 py-5 rounded-full font-bold text-xl shadow-xl flex items-center justify-center gap-3 group-hover:bg-gray-50 transition-colors w-full md:w-auto">
+              <span>انضم الآن</span>
+              <i class="pi pi-arrow-left transition-transform group-hover:-translate-x-2"></i>
+            </div>
+          </div>
+
+        </div>
+      </a>
+    </div>
+
+  </div>
+</section>

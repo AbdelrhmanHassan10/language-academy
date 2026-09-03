@@ -1,0 +1,51 @@
+<app-promo-banner></app-promo-banner>
+<app-navbar></app-navbar>
+
+<main class="w-full min-h-[50vh] bg-[linear-gradient(135deg,#EFF6FF_0%,#FAF5FF_50%,#F0FDFA_100%)]">
+  <router-outlet></router-outlet>
+</main>
+
+<app-footer></app-footer>
+
+<button
+  type="button"
+  (click)="scrollToTop()"
+  class="fixed bottom-6 right-6 z-50 p-3 rounded-full bg-blue-600 text-white shadow-lg hover:bg-blue-700 transition-all duration-300 flex items-center justify-center cursor-pointer"
+  [class.opacity-0]="!showBackToTop()"
+  [class.translate-y-10]="!showBackToTop()"
+  [class.opacity-100]="showBackToTop()"
+  [class.translate-y-0]="showBackToTop()"
+  [class.pointer-events-none]="!showBackToTop()"
+  aria-label="Back to top"
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <path d="m18 15-6-6-6 6" />
+  </svg>
+</button>
+
+<app-signup
+  [open]="authDialog.showSignup()"
+  (closed)="onSignupClosed()"
+  (openSignIn)="onOpenSignIn()"
+/>
+<app-sigin
+  [open]="authDialog.showLogin()"
+  (closed)="onLoginClosed()"
+  (openSignUp)="onOpenSignUp()"
+  (openForgotPassword)="onOpenForgotPassword()"
+/>
+<app-forgot-password
+  [open]="authDialog.showForgotPassword()"
+  (closed)="onForgotPasswordClosed()"
+  (openSignIn)="onOpenSignIn()"
+/>

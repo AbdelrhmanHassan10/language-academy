@@ -1,0 +1,209 @@
+<div class="bg-linear-to-br from-slate-50 via-blue-50 to-indigo-50 pt-4 md:pt-6 pb-10">
+
+  <!-- ── Top Bar ─────────────────────────────────────────────────────────── -->
+  <header [class]="examState.isLoading() || examState.loadError()
+      ? 'px-4 sm:px-6'
+      : 'sticky top-4 z-30 px-4 sm:px-6'">
+    <div
+      class="max-w-4xl mx-auto bg-white/95 backdrop-blur-lg border border-gray-100 rounded-2xl shadow-[0_8px_24px_rgba(0,0,0,0.08)]">
+      <div class="px-4 sm:px-6">
+
+        <!-- Title Row -->
+        <div class="flex items-center justify-between gap-4 py-3.5">
+          <div class="flex items-center gap-3 min-w-0">
+            <div class="shrink-0 w-9 h-9 rounded-xl bg-[#0066CC] flex items-center justify-center shadow-sm">
+              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+            </div>
+            <div class="min-w-0">
+              <h1 class="text-base font-bold text-gray-900 leading-tight truncate">
+                @if (examState.examData()) { {{ examState.examData()!.title }} } @else { TOEFL Placement Exam }
+              </h1>
+              @if (examState.session()) {
+              <p class="text-xs text-gray-400">Started {{ examState.session()!.startedAt | date: 'mediumDate' }}</p>
+              }
+            </div>
+          </div>
+          @if (!examState.isLoading() && !examState.loadError()) {
+          <div
+            class="shrink-0 flex items-center gap-1.5 text-xs font-medium text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-full px-3 py-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            Auto-saved
+          </div>
+          }
+        </div>
+
+        <!-- Level Stepper -->
+        @if (!examState.isLoading() && !examState.loadError()) {
+        <div class="pb-3">
+          <div class="flex items-center gap-1.5">
+            @for (step of levelSteps(); track step.level; let last = $last) {
+            <button type="button" (click)="examState.goToLevel(step.level)"
+              [disabled]="examState.submittedLevels().includes(step.level)"
+              class="flex items-center gap-2 px-3.5 py-2 rounded-xl text-sm font-semibold transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 disabled:opacity-75 disabled:cursor-not-allowed"
+              [class.bg-blue-600]="currentLevel() === step.level" [class.text-white]="currentLevel() === step.level"
+              [class.shadow-md]="currentLevel() === step.level" [class.shadow-blue-100]="currentLevel() === step.level"
+              [class.bg-emerald-50]="currentLevel() > step.level && !examState.submittedLevels().includes(step.level)" [class.text-emerald-700]="currentLevel() > step.level && !examState.submittedLevels().includes(step.level)"
+              [class.bg-gray-100]="examState.submittedLevels().includes(step.level)" [class.text-gray-500]="examState.submittedLevels().includes(step.level)"
+              [class.border]="currentLevel() !== step.level" [class.border-emerald-200]="currentLevel() > step.level && !examState.submittedLevels().includes(step.level)"
+              [class.bg-gray-50]="currentLevel() < step.level" [class.text-gray-400]="currentLevel() < step.level"
+              [class.border-gray-200]="currentLevel() < step.level || examState.submittedLevels().includes(step.level)">
+              @if (examState.submittedLevels().includes(step.level)) {
+              <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+              </svg>
+              } @else if (currentLevel() > step.level) {
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+              </svg>
+              } @else {
+              <span class="w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold"
+                [class.bg-white/20]="currentLevel() === step.level" [class.text-white]="currentLevel() === step.level"
+                [class.bg-gray-200]="currentLevel() < step.level" [class.text-gray-500]="currentLevel() < step.level">{{
+                step.level }}</span>
+              }
+              <span>{{ step.label }}</span>
+              <span class="hidden text-xs font-medium opacity-75 md:inline">{{ step.title }}</span>
+              @if (answeredCountForLevel(step.level)() > 0) {
+              <span class="text-xs px-1.5 py-0.5 rounded-full font-semibold"
+                [class.bg-white/20]="currentLevel() === step.level" [class.text-white]="currentLevel() === step.level"
+                [class.bg-emerald-100]="currentLevel() !== step.level"
+                [class.text-emerald-700]="currentLevel() !== step.level">
+                {{ answeredCountForLevel(step.level)() }}
+              </span>
+              }
+            </button>
+            @if (!last) {
+            <div class="flex-1 h-px transition-colors duration-300" [class.bg-emerald-400]="currentLevel() > step.level"
+              [class.bg-blue-300]="currentLevel() === step.level" [class.bg-gray-200]="currentLevel() < step.level">
+            </div>
+            }
+            }
+          </div>
+        </div>
+        }
+
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Main Content ────────────────────────────────────────────────────── -->
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 pt-5 pb-4">
+
+    <section class="rounded-2xl border border-white/70 bg-white/80 p-4 sm:p-5 shadow-[0_10px_30px_rgba(15,23,42,0.06)]">
+
+      <!-- Loading State -->
+      @if (examState.isLoading()) {
+      <div class="flex flex-col items-center justify-center py-24 gap-4">
+        <div class="w-12 h-12 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin"></div>
+        <p class="text-gray-500 font-medium">Loading your exam…</p>
+      </div>
+      }
+
+      <!-- Error State -->
+      @else if (examState.loadError()) {
+      <div class="flex items-center justify-center py-14 sm:py-20">
+        <div class="w-full max-w-xl rounded-2xl border border-red-100 bg-white px-6 py-8 text-center shadow-sm">
+          <div class="mx-auto mb-4 w-14 h-14 bg-red-50 rounded-2xl flex items-center justify-center">
+            <svg class="w-7 h-7 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
+            </svg>
+          </div>
+          <h2 class="text-lg sm:text-xl font-bold text-slate-900 mb-2">تعذر تحميل الامتحان</h2>
+          <p class="text-sm sm:text-base text-slate-600 mb-6">حدثت مشكلة أثناء تحميل بيانات الامتحان. حاول مرة أخرى.</p>
+          <p class="text-xs text-red-600 mb-5">{{ examState.loadError() }}</p>
+          <button (click)="retryLoad()"
+            class="inline-flex items-center justify-center px-6 py-2.5 bg-[#0066CC] text-white rounded-xl text-sm font-semibold hover:bg-blue-700 transition-colors">
+            إعادة المحاولة
+          </button>
+        </div>
+      </div>
+      }
+
+      <!-- Level Content -->
+      @else {
+      @switch (currentLevel()) {
+      @case (1) { <app-level-one /> }
+      @case (2) { <app-level-two /> }
+      @case (3) { <app-level-three /> }
+      }
+      }
+
+      <!-- Submit Error -->
+      @if (submitError()) {
+      <div class="mt-6 p-4 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm text-center">
+        <strong>⚠ Submission failed:</strong> {{ submitError() }}
+        <br>Your answers are safely stored locally and will be re-sent on retry.
+      </div>
+      }
+
+    </section>
+
+  </main>
+
+  <!-- ── Navigation Footer ──────────────────────────────────────────────── -->
+  @if (!examState.isLoading() && !examState.loadError()) {
+  <footer class="px-4 sm:px-6 pb-2 mt-2 mb-6">
+    <div
+      class="max-w-4xl mx-auto py-3.5 px-4 sm:px-6 flex items-center justify-between gap-4 bg-white/95 backdrop-blur-lg border border-gray-100 rounded-2xl shadow-[0_8px_24px_rgba(0,0,0,0.08)]">
+
+      <!-- Previous -->
+      <button type="button" (click)="goPrevLevel()" [disabled]="currentLevel() === 1 || examState.submittedLevels().includes(currentLevel() - 1)"
+        class="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold border-2 border-gray-200 text-gray-600 transition-all duration-200 hover:border-blue-300 hover:text-blue-600 hover:bg-blue-50 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:border-gray-200 disabled:hover:text-gray-600 disabled:hover:bg-transparent">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+        <span class="hidden sm:inline">Previous Level</span>
+      </button>
+
+      <!-- Progress dots -->
+      <div class="flex items-center gap-2">
+        @for (step of levelSteps(); track step.level) {
+        <div class="h-2 rounded-full transition-all duration-300" [class.w-8]="currentLevel() === step.level"
+          [class.w-2]="currentLevel() !== step.level" [class.bg-blue-600]="currentLevel() === step.level"
+          [class.bg-emerald-400]="currentLevel() > step.level" [class.bg-gray-200]="currentLevel() < step.level"></div>
+        }
+      </div>
+
+      <!-- Next / Submit -->
+      @if (currentLevel() < 3) { <button type="button" (click)="goNextLevel()" [disabled]="isSavingSection()"
+        class="flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-semibold bg-[#0066CC] text-white hover:bg-blue-700 active:scale-95 transition-all duration-200 shadow-md shadow-blue-200/60 disabled:opacity-60 disabled:cursor-not-allowed disabled:active:scale-100">
+        @if (isSavingSection()) {
+        <span class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+        <span class="hidden sm:inline">Saving…</span>
+        } @else {
+        <span class="hidden sm:inline">Next Level</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+        }
+        </button>
+        } @else {
+        <button type="button" (click)="openSubmitModal()" [disabled]="isSubmitting()"
+          class="flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-semibold bg-emerald-600 text-white hover:bg-emerald-700 active:scale-95 transition-all duration-200 shadow-md shadow-emerald-200/60 disabled:opacity-60 disabled:cursor-not-allowed disabled:active:scale-100">
+          @if (isSubmitting()) {
+          <span class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+          <span class="hidden sm:inline">Submitting…</span>
+          } @else {
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          <span class="hidden sm:inline">Submit Exam</span>
+          }
+        </button>
+        }
+
+    </div>
+  </footer>
+  }
+
+</div>
+
+<!-- ── Submit Confirmation Modal ──────────────────────────────────────────── -->
+<app-confirmation [(visible)]="showSubmitModal" title="Submit Exam"
+  message="Are you sure you want to submit your exam? Once submitted, you will not be able to change your answers."
+  acceptLabel="Yes, Submit Exam" rejectLabel="Cancel" type="warning" icon="pi pi-exclamation-triangle text-3xl"
+  (onConfirm)="onSubmitConfirm()" (onCancel)="onSubmitCancel()" />

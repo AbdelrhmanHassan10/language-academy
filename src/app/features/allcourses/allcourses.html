@@ -1,0 +1,23 @@
+@defer (on viewport) {
+  <app-about-center
+    [servicesAbout]="servicesAbout"
+    [showSearch]="true"
+    (searchChange)="onSearchChange($event)"
+  />
+} @placeholder {
+  <h2>loading...</h2>
+}
+
+<div class="px-5 md:px-[80px] lg:px-[130px] bg-white">
+  @defer (on viewport) {
+    <app-allcourses-card [search]="searchTerm()" />
+  } @placeholder {
+    <h2>loading...</h2>
+  }
+</div>
+
+@defer (on viewport) {
+  <app-didnot-find-course />
+} @placeholder {
+  <h2>loading...</h2>
+}

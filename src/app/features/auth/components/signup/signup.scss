@@ -1,0 +1,81 @@
+// Elegant scrollbar styling
+.elegant-scroll {
+  // Smooth scrolling behavior
+  scroll-behavior: smooth;
+  
+  // Custom scrollbar for WebKit browsers (Chrome, Safari, Edge)
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(243, 244, 246, 0.5); // Light gray with transparency
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #3b82f6, #2563eb); // Blue gradient
+    border-radius: 10px;
+    transition: background 0.3s ease;
+    
+    &:hover {
+      background: linear-gradient(180deg, #2563eb, #1d4ed8); // Darker blue on hover
+    }
+  }
+
+  // For Firefox
+  scrollbar-width: thin;
+  scrollbar-color: #3b82f6 rgba(243, 244, 246, 0.5);
+}
+
+/* -------------------------------------------------------------------------- */
+/* ✨ AMAZING ENTRANCE ANIMATIONS (WOW FACTOR) ✨                            */
+/* -------------------------------------------------------------------------- */
+
+// 1. Backdrop Fade & Blur
+@keyframes fadeInBackdrop {
+  0% { opacity: 0; backdrop-filter: blur(0px); }
+  100% { opacity: 1; backdrop-filter: blur(12px); }
+}
+
+.animate-backdrop {
+  animation: fadeInBackdrop 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+// 2. Modal 3D Spring Entrance
+@keyframes modalRevealAwesome {
+  0% {
+    opacity: 0;
+    transform: scale(0.85) translateY(40px) rotateX(-8deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0) rotateX(0deg);
+  }
+}
+
+.animate-modal-awesome {
+  // We use a spring-like cubic-bezier for a bouncy, energetic entrance!
+  animation: modalRevealAwesome 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  transform-style: preserve-3d;
+}
+
+// 3. Staggered Form & Content Elements
+@keyframes staggerUpSmooth {
+  0% { opacity: 0; transform: translateY(20px) scale(0.98); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.stagger-item {
+  opacity: 0; // Starts hidden
+  animation: staggerUpSmooth 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+// Stagger delays for cascading effect
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+.delay-600 { animation-delay: 600ms; }
+.delay-700 { animation-delay: 700ms; }

@@ -1,0 +1,79 @@
+@if (loading()) {
+  <div class="skeleton-table">
+    <div class="skeleton skeleton-row header"></div>
+    <div class="skeleton skeleton-row"></div>
+    <div class="skeleton skeleton-row"></div>
+    <div class="skeleton skeleton-row"></div>
+  </div>
+} @else if (error()) {
+  <div class="error-msg">
+    <i class="pi pi-exclamation-triangle"></i>
+    {{ error() }}
+  </div>
+} @else if (courses().length === 0) {
+  <div class="empty-state">
+    <i class="pi pi-book"></i>
+    <p>لم تقم بالتسجيل في أي كورسات بعد.</p>
+  </div>
+} @else {
+  <div class="table-responsive">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>اسم الكورس</th>
+          <th>تاريخ التسجيل</th>
+          <th>تفاصيل الكورس</th>
+          <th>السعر</th>
+          <th>الحالة</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (course of courses(); track course.enrollment_id) {
+          <tr
+            class="hover:bg-gray-50 transition-colors"
+          >
+            <td class="primary-cell" data-label="اسم الكورس">
+              <strong>{{ course.course_name }}</strong>
+            </td>
+            <td data-label="تاريخ التسجيل">
+              <div class="cell-content">
+                <i class="pi pi-calendar"></i>
+                <span>{{ course.registered_at | date: 'mediumDate' }}</span>
+              </div>
+            </td>
+            <td class="details-cell" data-label="تفاصيل الكورس">
+              <div class="td-content-wrapper">
+                @if (course.course_details) {
+                  <div class="cell-content">
+                    <i class="pi pi-user"></i>
+                    <span>{{ course.course_details.instructor_name }}</span>
+                  </div>
+                  <div class="cell-content">
+                    <i class="pi pi-map-marker"></i>
+                    <span>{{ course.course_details.location }}</span>
+                  </div>
+                } @else {
+                  <span class="text-muted">-</span>
+                }
+              </div>
+            </td>
+            <td data-label="السعر">
+              <strong class="price">{{ course.price | number }} ج.م</strong>
+            </td>
+            <td data-label="الحالة">
+              <span class="status-badge" [ngClass]="'status-' + course.status">
+                {{
+                  course.status === 'approved'
+                    ? 'مقبول'
+                    : course.status === 'pending'
+                      ? 'قيد المراجعة'
+                      : course.status
+                }}
+              </span>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+}

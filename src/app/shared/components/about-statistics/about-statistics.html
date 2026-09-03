@@ -1,0 +1,38 @@
+@if (educationalCards().length > 0) {
+  <section class="container mx-auto py-8 lg:py-16">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      @for (card of educationalCards(); track card.id; let i = $index) {
+        <a
+          data-aos="fade-up" [attr.data-aos-delay]="(i % 4) * 100"
+          class="group relative bg-white rounded-[2rem] p-8 shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_25px_50px_rgba(0,102,204,0.15)] transition-all duration-500 hover:-translate-y-3 border border-gray-100 hover:border-blue-200 h-full flex flex-col justify-between items-center overflow-hidden"
+        >
+          <!-- Decorative gradient on hover -->
+          <div class="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+
+          <div class="relative z-10 flex flex-col items-center justify-center w-full">
+            <div
+              [style.background-color]="card.bgColor"
+              class="w-20 h-20 rounded-[1.5rem] flex items-center justify-center mb-6 shadow-md text-center group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-500 global-animate-float"
+            >
+              <img [src]="card.icon" [alt]="card.title" class="w-10 h-10 drop-shadow-sm filter brightness-0 invert" />
+            </div>
+            
+            <h3
+              class="text-3xl lg:text-4xl font-black text-gray-900 mb-3 group-hover:text-[#0066CC] transition-colors global-text-gradient"
+              style="direction: ltr;"
+            >
+              {{ card.title }}
+            </h3>
+            
+            <p class="text-gray-500 text-lg font-bold leading-relaxed mb-2 text-center">
+              {{ card.description }}
+            </p>
+            
+            <!-- Subtle decorator line -->
+            <div class="w-12 h-1.5 bg-gray-100 rounded-full mt-4 group-hover:bg-[#0066CC] transition-colors duration-500"></div>
+          </div>
+        </a>
+      }
+    </div>
+  </section>
+}

@@ -1,0 +1,253 @@
+<nav
+  class="fixed left-0 right-0 z-50 transition-all duration-500 w-full border-b"
+  [class.top-0]="isScrolled()"
+  [class.top-11]="!isScrolled()"
+  [class.lg:top-12]="!isScrolled()"
+  [class.backdrop-blur-xl]="isScrolled()"
+  [class.bg-white/95]="isScrolled()"
+  [class.border-gray-200]="isScrolled()"
+  [class.shadow-md]="isScrolled()"
+  [class.bg-transparent]="!isScrolled()"
+  [class.border-transparent]="!isScrolled()"
+>
+  <div class="mx-auto w-full px-4 sm:px-6 lg:px-8 max-w-7xl">
+    <div class="flex justify-between h-20">
+      <!-- Logo & Brand -->
+      <div class="flex items-center gap-3 animate-fade-in-down">
+        <div class="shrink-0">
+          <a
+            routerLink="/"
+            class="h-12.5 w-37.5 lg:h-14 lg:w-59 flex items-center justify-center overflow-hidden transition-all duration-300 hover:scale-105"
+            [class.bg-white/95]="!  isScrolled()"
+            [class.backdrop-blur-md]="!isScrolled()"
+            [class.rounded-2xl]="!isScrolled()"
+            [class.px-3]="!isScrolled()"
+            [class.py-1]="!isScrolled()"
+            [class.shadow-[0_4px_15px_rgba(255,255,255,0.15)]]="!isScrolled()"
+          >
+            <img
+              src="/images/icon/logo.png"
+              alt="University Logo"
+              class="h-full w-full object-contain"
+            />
+          </a>
+        </div>
+      </div>
+
+      <!-- Desktop Menu -->
+      <div class="hidden lg:flex items-center gap-6 animate-fade-in-down" style="animation-delay: 0.1s;">
+        @for (link of [{path: '/about', label: 'عن المركز'}, {path: '/services', label: 'الخدمات'}, {path: '/allcourses', label: 'الكورسات'}, {path: '/exams', label: 'الاختبارات'}, {path: '/contact-page', label: 'تواصل معنا'}]; track link.path) {
+          <a
+            [routerLink]="link.path"
+            class="group relative px-2 py-2 text-base font-bold transition-colors"
+            [class.text-[#1a1a1a]]="isScrolled()"
+            [class.hover:text-[#0066CC]]="isScrolled()"
+            [class.text-white]="!isScrolled()"
+            [class.hover:text-blue-200]="!isScrolled()"
+          >
+            {{ link.label }}
+            <span 
+              class="absolute inset-x-0 bottom-0 h-0.5 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center rounded-full"
+              [class.bg-gradient-to-r]="isScrolled()" [class.from-[#0066CC]]="isScrolled()" [class.to-[#00B2A9]]="isScrolled()"
+              [class.bg-white]="!isScrolled()"
+            ></span>
+          </a>
+        }
+      </div>
+
+      <!-- Auth Buttons / Logged User -->
+      <div class="hidden lg:flex items-center gap-4 animate-fade-in-down" style="animation-delay: 0.2s;">
+        @if (isAuthenticated()) {
+          <button
+            type="button"
+            class="relative w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-300 cursor-pointer hover:-translate-y-0.5"
+            [class.border-slate-200]="isScrolled()" [class.bg-white]="isScrolled()" [class.text-slate-600]="isScrolled()"
+            [class.hover:text-[#0066CC]]="isScrolled()" [class.hover:border-blue-200]="isScrolled()"
+            [class.border-white/30]="!isScrolled()" [class.bg-black/20]="!isScrolled()" [class.text-white]="!isScrolled()" [class.backdrop-blur-sm]="!isScrolled()"
+            [class.hover:bg-white]="!isScrolled()" [class.hover:text-black]="!isScrolled()"
+            aria-label="الإشعارات"
+          >
+            <i class="pi pi-bell text-lg"></i>
+            @if (notificationCount() > 0) {
+              <span class="absolute -top-1 -right-1 min-w-4.5 h-4.5 px-1 rounded-full bg-gradient-to-br from-pink-500 to-red-500 text-white text-[10px] font-bold flex items-center justify-center ring-2 ring-white shadow-sm">
+                {{ notificationCount() }}
+              </span>
+            }
+          </button>
+
+          <div class="relative">
+            <button
+              type="button"
+              (click)="toggleDropdown()"
+              class="h-12 min-w-64 rounded-full border pl-2 pr-2 flex items-center justify-between gap-3 shadow-sm transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#0066CC] focus:ring-offset-2 hover:-translate-y-0.5"
+              [class.border-[#0066CC]/30]="isScrolled()" [class.bg-gradient-to-r]="isScrolled()" [class.from-[#F4F9FF]]="isScrolled()" [class.to-white]="isScrolled()" [class.hover:border-[#0066CC]]="isScrolled()"
+              [class.border-white/30]="!isScrolled()" [class.bg-black/20]="!isScrolled()" [class.backdrop-blur-sm]="!isScrolled()" [class.hover:border-white]="!isScrolled()" [class.text-white]="!isScrolled()"
+              aria-label="قائمة الحساب"
+              aria-haspopup="true"
+              [attr.aria-expanded]="isDropdownOpen()"
+            >
+              <div class="w-9 h-9 rounded-full bg-gradient-to-br from-[#715DE7] to-[#0066CC] text-white flex items-center justify-center shadow-md shrink-0">
+                <i class="pi pi-user text-sm"></i>
+              </div>
+
+              <span class="text-[17px] leading-none font-bold truncate tracking-tight flex-1 text-center"
+                    [class.text-[#1F2937]]="isScrolled()" [class.text-white]="!isScrolled()">
+                {{ userDisplayName() }}
+              </span>
+
+              <div class="w-8 h-8 rounded-full border flex items-center justify-center shadow-sm shrink-0"
+                   [class.bg-white]="isScrolled()" [class.border-slate-200]="isScrolled()" [class.text-slate-600]="isScrolled()"
+                   [class.bg-black/30]="!isScrolled()" [class.border-white/30]="!isScrolled()" [class.text-white]="!isScrolled()">
+                <i class="pi pi-angle-down text-sm transition-transform duration-300" [class.rotate-180]="isDropdownOpen()"></i>
+              </div>
+            </button>
+
+            <!-- Dropdown Menu -->
+            @if (isDropdownOpen()) {
+              <div class="absolute left-0 top-[calc(100%+0.5rem)] w-60 rounded-2xl bg-white/95 backdrop-blur-xl border border-white/60 shadow-[0_20px_50px_-10px_rgba(0,102,204,0.15)] overflow-hidden z-50 animate-fade-in-up" dir="rtl">
+                <div class="px-5 py-4 border-b border-slate-100/50 bg-gradient-to-br from-slate-50/50 to-white">
+                  <p class="text-xs text-slate-500 font-medium mb-1">مرحبًا بك مرة أخرى</p>
+                  <p class="text-base font-bold text-[#1a1a1a] truncate">{{ userDisplayName() }}</p>
+                </div>
+                <div class="py-2">
+                  <a routerLink="/profile" (click)="isDropdownOpen.set(false)" class="w-full flex items-center gap-3 px-5 py-3 text-slate-700 hover:bg-[#0066CC]/5 hover:text-[#0066CC] transition-colors cursor-pointer text-right group">
+                    <i class="pi pi-user text-lg text-slate-400 group-hover:text-[#0066CC] transition-colors"></i>
+                    <span class="font-bold">الملف الشخصي</span>
+                  </a>
+                  <button type="button" (click)="logout()" class="w-full flex items-center gap-3 px-5 py-3 text-red-600 hover:bg-red-50 transition-colors cursor-pointer text-right group">
+                    <i class="pi pi-sign-out text-lg text-red-400 group-hover:text-red-600 transition-colors"></i>
+                    <span class="font-bold">تسجيل الخروج</span>
+                  </button>
+                </div>
+              </div>
+            }
+
+            <!-- Backdrop to close dropdown -->
+            @if (isDropdownOpen()) {
+              <div class="fixed inset-0 z-40" (click)="isDropdownOpen.set(false)"></div>
+            }
+          </div>
+        } @else {
+          <a
+            (click)="openSigninModal()"
+            class="font-bold px-6 py-2.5 border-2 rounded-full transition-all duration-300 cursor-pointer hover:-translate-y-0.5"
+            [class.text-[#0066CC]]="isScrolled()" [class.border-[#0066CC]]="isScrolled()" [class.hover:bg-[#0066CC]]="isScrolled()" [class.hover:text-white]="isScrolled()"
+            [class.text-white]="!isScrolled()" [class.border-white/80]="!isScrolled()" [class.bg-black/20]="!isScrolled()" [class.backdrop-blur-md]="!isScrolled()" [class.hover:bg-white]="!isScrolled()" [class.hover:text-[#1a1a1a]]="!isScrolled()"
+          >
+            تسجيل الدخول
+          </a>
+          <button
+            (click)="openSignupModal()"
+            class="font-bold px-7 py-2.5 rounded-full shadow-lg transition-all duration-300 cursor-pointer hover:-translate-y-0.5"
+            [class.bg-gradient-to-r]="isScrolled()" [class.from-[#0066CC]]="isScrolled()" [class.to-[#00B2A9]]="isScrolled()" [class.text-white]="isScrolled()"
+            [class.bg-white]="!isScrolled()" [class.text-[#0066CC]]="!isScrolled()" [class.hover:shadow-[0_15px_30px_rgba(255,255,255,0.2)]]="!isScrolled()"
+          >
+            إنشاء حساب
+          </button>
+        }
+      </div>
+
+      <!-- Mobile menu button -->
+      <div class="flex items-center lg:hidden">
+        <button
+          (click)="toggleMenu()"
+          class="inline-flex items-center justify-center p-2 rounded-xl transition-colors focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#0066CC]"
+          [class.text-gray-500]="isScrolled()" [class.hover:text-[#0066CC]]="isScrolled()" [class.hover:bg-blue-50]="isScrolled()"
+          [class.text-white]="!isScrolled()" [class.hover:text-blue-200]="!isScrolled()" [class.hover:bg-white/10]="!isScrolled()"
+          aria-expanded="false"
+        >
+          <span class="sr-only">Open main menu</span>
+          @if (isMenuOpen()) {
+            <i class="pi pi-times text-2xl block w-6 h-6 flex items-center justify-center"></i>
+          } @else {
+            <i class="pi pi-bars text-2xl block w-6 h-6 flex items-center justify-center"></i>
+          }
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div
+    class="lg:hidden grid transition-[grid-template-rows] duration-500 ease-in-out absolute top-full left-0 right-0 w-full"
+    [class.grid-rows-[1fr]]="isMenuOpen()"
+    [class.grid-rows-[0fr]]="!isMenuOpen()"
+    [class.shadow-2xl]="isMenuOpen()"
+  >
+    <div class="overflow-hidden">
+      <div class="bg-white/95 backdrop-blur-xl border-t border-gray-100">
+        <div class="px-4 pt-4 pb-6 space-y-2">
+          <a
+            routerLink="/about"
+            (click)="isMenuOpen.set(false)"
+            class="text-gray-800 hover:text-[#0066CC] hover:bg-blue-50 block px-4 py-3 rounded-xl text-base font-bold text-right transition-colors"
+            >عن المركز</a
+          >
+          <a
+            routerLink="/services"
+            (click)="isMenuOpen.set(false)"
+            class="text-gray-800 hover:text-[#0066CC] hover:bg-blue-50 block px-4 py-3 rounded-xl text-base font-bold text-right transition-colors"
+            >الخدمات</a
+          >
+          <a
+            routerLink="/allcourses"
+            (click)="isMenuOpen.set(false)"
+            class="text-gray-800 hover:text-[#0066CC] hover:bg-blue-50 block px-4 py-3 rounded-xl text-base font-bold text-right transition-colors"
+            >الكورسات</a
+          >
+          <a
+            routerLink="/exams"
+            (click)="isMenuOpen.set(false)"
+            class="text-gray-800 hover:text-[#0066CC] hover:bg-blue-50 block px-4 py-3 rounded-xl text-base font-bold text-right transition-colors"
+            >الاختبارات</a
+          >
+          <a
+            routerLink="/contact-page"
+            (click)="isMenuOpen.set(false)"
+            class="text-gray-800 hover:text-[#0066CC] hover:bg-blue-50 block px-4 py-3 rounded-xl text-base font-bold text-right transition-colors"
+            >تواصل معنا</a
+          >
+        </div>
+        <div class="pt-6 pb-8 border-t border-gray-100 bg-gray-50/50">
+          <div class="flex flex-col space-y-4 px-6">
+            @if (isAuthenticated()) {
+              <div class="rounded-2xl border border-blue-200 bg-blue-50/50 px-4 py-4 text-right backdrop-blur-sm">
+                <p class="text-sm text-gray-500 mb-1">مرحبًا</p>
+                <p class="text-lg font-bold text-gray-900 truncate">
+                  {{ userDisplayName() }}
+                </p>
+              </div>
+              <a
+                routerLink="/profile"
+                (click)="isMenuOpen.set(false)"
+                class="w-full text-center text-[#0066CC] font-bold px-4 py-3 border-2 border-[#0066CC] rounded-xl hover:bg-blue-50 transition-colors cursor-pointer block"
+              >
+                الملف الشخصي
+              </a>
+              <button
+                type="button"
+                (click)="logout()"
+                class="w-full text-center text-red-600 font-bold px-4 py-3 border-2 border-red-600 rounded-xl hover:bg-red-50 transition-colors cursor-pointer"
+              >
+                تسجيل الخروج
+              </button>
+            } @else {
+              <a
+                (click)="openSigninModal()"
+                class="w-full text-center text-[#0066CC] font-bold px-4 py-3 border-2 border-[#0066CC] rounded-xl hover:bg-blue-50 transition-colors cursor-pointer block"
+              >
+                تسجيل الدخول
+              </a>
+              <button
+                (click)="openSignupModal()"
+                class="w-full text-center bg-gradient-to-r from-[#0066CC] to-[#00B2A9] text-white font-bold px-4 py-3 rounded-xl hover:opacity-90 transition-opacity shadow-md cursor-pointer block"
+              >
+                إنشاء حساب
+              </button>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,76 @@
+<section class="relative py-16 lg:py-24 bg-[#F8FAFC] overflow-hidden" dir="rtl">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px] relative z-10">
+    @if (aboutUsData()) {
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <!-- Content Side (Right in RTL) -->
+        <div class="flex flex-col text-right" data-aos="fade-left" data-aos-duration="1000">
+          <!-- Heading -->
+          <h2 class="text-4xl lg:text-5xl font-black text-[#00B2A9] leading-tight mb-8">من نحن؟</h2>
+
+          <!-- Subtext -->
+          <div class="space-y-6">
+            <h3 class="text-2xl lg:text-3xl font-extrabold text-[#1e293b] leading-snug">
+              {{ aboutUsData()!.hero_title }}
+            </h3>
+
+            <p class="text-[#475569] text-lg lg:text-xl font-medium leading-relaxed">
+              {{ aboutUsData()!.hero_description }}
+            </p>
+            <p class="text-[#475569] text-lg lg:text-xl font-medium leading-relaxed">
+              {{ aboutUsData()!.mission }}
+            </p>
+            <p class="text-[#475569] text-lg lg:text-xl font-medium leading-relaxed">
+              {{ aboutUsData()!.goals }}
+            </p>
+
+            <p class="text-[#475569] text-lg lg:text-xl font-medium leading-relaxed">
+              <span class="font-bold text-[#1e293b]">هدفنا :</span> {{ aboutUsData()!.vision }}
+            </p>
+
+            <div class="flex flex-wrap gap-3 pt-4">
+              <span
+                *ngFor="let advantage of aboutUsData()!.advantages"
+                class="inline-block bg-[#E0F2FE] text-[#0369A1] text-sm font-bold px-5 py-2.5 rounded-xl shadow-sm border border-[#BAE6FD]"
+              >
+                {{ advantage }}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Image Side (Left in RTL) -->
+        <div
+          class="relative w-full h-full flex items-center justify-center lg:justify-end mt-12 lg:mt-0"
+          data-aos="fade-right" data-aos-duration="1000"
+        >
+          <div
+            class="relative w-full max-w-[550px] aspect-square bg-white rounded-[2.5rem] shadow-[0_15px_50px_rgba(0,0,0,0.06)] border border-gray-100 flex items-center justify-center p-8 overflow-hidden"
+          >
+            <img
+              [ngSrc]="aboutUsData()!.image"
+              alt="Logo"
+              fill
+              priority
+              class="object-contain p-4"
+            />
+          </div>
+        </div>
+      </div>
+    } @else {
+      <!-- Loading skeleton -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-20 items-center animate-pulse">
+        <div class="flex flex-col text-right space-y-4">
+          <div class="h-10 bg-gray-200 rounded w-32 mr-auto"></div>
+          <div class="h-4 bg-gray-200 rounded w-full"></div>
+          <div class="h-4 bg-gray-200 rounded w-full"></div>
+          <div class="h-4 bg-gray-200 rounded w-3/4"></div>
+          <div class="h-4 bg-gray-200 rounded w-full"></div>
+          <div class="h-4 bg-gray-200 rounded w-5/6"></div>
+        </div>
+        <div
+          class="w-full aspect-[4/3] lg:h-[600px] bg-gray-200 rounded-2xl lg:rounded-[3rem]"
+        ></div>
+      </div>
+    }
+  </div>
+</section>

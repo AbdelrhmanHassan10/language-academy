@@ -1,0 +1,37 @@
+@defer (on viewport) {
+<app-about-center [servicesAbout]="servicesAbout" />
+} @placeholder {
+<h2>loading...</h2>
+}
+
+<div class="px-5 md:px-[80px] lg:px-[130px] bg-white">
+  @defer (on viewport) {
+  <app-allexams-card [search]="searchTerm()" />
+  } @placeholder {
+  <h2>loading...</h2>
+  }
+</div>
+
+@defer (on viewport) {
+<section class="w-full bg-[#0066CC] py-12 px-6 md:px-36 flex flex-col items-center">
+  <div class="flex flex-col items-center w-full max-w-3xl mx-auto relative">
+    <div class="flex items-center justify-center bg-white/20 bg-opacity-20 rounded-full w-20 h-20 mb-6">
+      <img src="/images/icon/book.svg" alt="icon" class="w-10 h-10" />
+    </div>
+    <h2 class="text-3xl md:text-4xl font-cairo font-normal text-white leading-[40px] mb-4 text-center">
+      تحتاج إالى مساعدة في اختيار الامتحان المناسب ؟
+    </h2>
+    <p class="text-lg md:text-xl font-cairo text-[#dbeafe] leading-[32px] mb-8 text-center">
+      تواصل معنا وسنساعدك في اختيار البرنامج التدريبي الأمثل لاحتياجاتك
+    </p>
+    <div class="flex flex-col md:flex-row gap-4 justify-center w-full">
+      <a class="bg-white rounded-full px-10 py-3 text-[#06c] text-base font-cairo font-bold transition hover:bg-[#dbeafe]"
+        routerLink="/contact-page">
+        تواصل معنا الان
+      </a>
+    </div>
+  </div>
+</section>
+} @placeholder {
+<h2>loading...</h2>
+}
