@@ -1,115 +1,205 @@
-<footer class="text-gray-300 pt-16 pb-8 px-4 md:px-8 lg:px-16"
-  style="background: linear-gradient(180deg, #1a1a2e 0%, #0f0f1e 100%)" dir="rtl">
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 text-right">
-    <!-- Center Info Section -->
-    <div class="flex flex-col gap-6" data-aos="fade-up" data-aos-duration="1000">
-      <div class="flex items-center gap-4">
-        <div class="w-14 h-14 rounded-full flex items-center justify-center shadow-lg shadow-blue-500/20 bg-[#0066CC]">
-          <img ngSrc="images/icon/graduated.svg" width="32" height="32" alt="Graduation Cap"
-            class="invert brightness-0" />
-        </div>
-        <div>
-          <h2 class="text-xl font-bold text-white leading-tight">مركز اللغات والترجمة</h2>
-          <p class="text-xs text-gray-400">جامعة بني سويف</p>
-        </div>
-      </div>
+<footer class="relative overflow-hidden bg-[#0B1120] text-gray-300 pt-20 pb-8 px-4 md:px-8 lg:px-16 border-t border-white/5" dir="rtl">
+  
+  <!-- ═══════ Background Glow Effects ═══════ -->
+  <div class="absolute top-0 right-0 w-96 h-96 bg-blue-600/10 rounded-full blur-[120px] pointer-events-none"></div>
+  <div class="absolute bottom-0 left-0 w-96 h-96 bg-teal-600/10 rounded-full blur-[120px] pointer-events-none"></div>
 
-      <p class="text-lg leading-relaxed text-gray-400">
-        نقدم أفضل الخدمات التعليمية والترجمة المعتمدة لدعم مسيرتك الأكاديمية والمهنية منذ عام 1999
-      </p>
-
-      <!-- Social Media Icons — order: Twitter, YouTube, Instagram, Facebook -->
-      <div class="flex gap-3 pt-2">
-        <a href="#"
-          class="w-40 h-10 rounded-lg border border-gray-700 flex items-center justify-center hover:bg-blue-600 hover:border-blue-600 hover:scale-105 transition-all duration-300 group shadow-[0_0_15px_rgba(0,102,204,0)] hover:shadow-[0_0_20px_rgba(0,102,204,0.5)]">
-          <i class="pi pi-facebook text-gray-400 group-hover:text-white transition-colors duration-300"></i>
-          <span class="mr-2">Facebook</span>
-        </a>
-      </div>
-    </div>
-
-    <!-- Quick Links Section -->
-    <div data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
-      <h3
-        class="text-lg font-bold text-white mb-8 relative after:content-[''] after:absolute after:bottom-[-8px] after:right-0 after:w-10 after:h-[2px] after:bg-blue-600">
-        روابط سريعة
-      </h3>
-      <ul class="flex flex-col gap-4 text-lg">
-        <li><a href="#" class="hover:text-blue-500 hover:pr-2 transition-all duration-300 inline-block">عن المركز</a></li>
-        <li><a href="#" class="hover:text-blue-500 hover:pr-2 transition-all duration-300 inline-block">الخدمات</a></li>
-        <li><a href="#" class="hover:text-blue-500 hover:pr-2 transition-all duration-300 inline-block">الكورسات</a></li>
-        <li><a href="#" class="hover:text-blue-500 hover:pr-2 transition-all duration-300 inline-block">الاختبارات</a></li>
-        <li><a href="#" class="hover:text-blue-500 hover:pr-2 transition-all duration-300 inline-block">الترجمة</a></li>
-        <li><a href="#" class="hover:text-blue-500 hover:pr-2 transition-all duration-300 inline-block">تواصل معنا</a></li>
-      </ul>
-    </div>
-
-    <!-- Resources Section -->
-    <div data-aos="fade-up" data-aos-delay="400" data-aos-duration="1000">
-      <h3
-        class="text-lg font-bold text-white mb-8 relative after:content-[''] after:absolute after:bottom-[-8px] after:right-0 after:w-10 after:h-[2px] after:bg-blue-600">
-        الموارد
-      </h3>
-      <ul class="flex flex-col gap-4 text-lg">
-        <li><a href="#" class="hover:text-blue-500 hover:pr-2 transition-all duration-300 inline-block">الأسئلة الشائعة</a></li>
-        <li><a href="#" class="hover:text-blue-500 hover:pr-2 transition-all duration-300 inline-block">دليل الطالب</a></li>
-        <li><a href="#" class="hover:text-blue-500 hover:pr-2 transition-all duration-300 inline-block">المدونة</a></li>
-        <li><a href="#" class="hover:text-blue-500 hover:pr-2 transition-all duration-300 inline-block">الأخبار</a></li>
-        <li><a href="#" class="hover:text-blue-500 hover:pr-2 transition-all duration-300 inline-block">التقويم الأكاديمي</a></li>
-        <li><a href="#" class="hover:text-blue-500 hover:pr-2 transition-all duration-300 inline-block">الوظائف</a></li>
-      </ul>
-    </div>
-
-    <!-- Contact Section -->
-    <div class="flex flex-col gap-5" data-aos="fade-up" data-aos-delay="600" data-aos-duration="1000">
-      <h3
-        class="text-lg font-bold text-white mb-3 relative after:content-[''] after:absolute after:bottom-[-8px] after:right-0 after:w-10 after:h-[2px] after:bg-blue-600">
-        تواصل معنا
-      </h3>
-
-      <div class="flex flex-col gap-4 text-lg items-start justify-end">
-        <!-- Address: text on left, icon on right -->
-        <div class="flex items-start justify-end gap-3">
-          <i class="pi pi-map-marker text-blue-500 mt-1"></i>
-          <span>مدينة الجامعة، بني سويف، مصر</span>
-        </div>
-        <!-- Phone numbers grouped -->
-        <div class="flex items-center justify-end gap-3">
-          <i class="pi pi-phone text-blue-500"></i>
-          <div class="flex flex-col items-end gap-1">
-            <span dir="ltr">+20 82 1234 5678</span>
-            <span dir="ltr">+20 82 8765 4321</span>
+  <div class="relative max-w-[1400px] mx-auto z-10">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 text-right">
+      
+      <!-- ═══════ Center Info Section ═══════ -->
+      <div class="flex flex-col gap-8" data-aos="fade-up" data-aos-duration="1000">
+        <!-- Logo -->
+        <div class="flex items-center gap-4">
+          <div class="w-16 h-16 rounded-[1.5rem] flex items-center justify-center bg-gradient-to-br from-[#0066CC] to-[#00B2A9] shadow-lg shadow-blue-500/20">
+            <img ngSrc="images/icon/graduated.svg" width="36" height="36" alt="Graduation Cap" class="invert brightness-0" />
+          </div>
+          <div>
+            <h2 class="text-2xl font-extrabold text-white leading-tight">مركز اللغات والترجمة</h2>
+            <p class="text-sm font-medium text-blue-400 mt-1">جامعة بني سويف</p>
           </div>
         </div>
-        <!-- Email -->
-        <div class="flex items-center justify-end gap-3">
-          <i class="pi pi-envelope text-blue-500"></i>
-          <span>info@bsu-languagecenter.edu.eg</span>
+
+        <p class="text-[16px] leading-relaxed text-gray-400 font-medium">
+          نقدم أفضل الخدمات التعليمية والترجمة المعتمدة لدعم مسيرتك الأكاديمية والمهنية منذ عام 1999
+        </p>
+
+        <!-- Social Media Icons (Restored Original Logic) -->
+        <div class="flex gap-3 pt-2">
+          <a href="#"
+            class="w-40 h-10 rounded-lg border border-gray-700 flex items-center justify-center hover:bg-blue-600 hover:border-blue-600 hover:scale-105 transition-all duration-300 group shadow-[0_0_15px_rgba(0,102,204,0)] hover:shadow-[0_0_20px_rgba(0,102,204,0.5)]">
+            <i class="pi pi-facebook text-gray-400 group-hover:text-white transition-colors duration-300"></i>
+            <span class="mr-2 text-white font-medium">Facebook</span>
+          </a>
         </div>
       </div>
 
-      <!-- Working Hours Card -->
-      <div class="bg-[#ffffff0f] p-5 rounded-2xl border border-gray-700/50 shadow-inner mt-2">
-        <h4 class="text-white font-semibold mb-2 text-sm">ساعات العمل</h4>
-        <p class="text-xs text-gray-400">السبت - الخميس: 9:00 ص - 5:00 م</p>
+      <!-- ═══════ Quick Links Section ═══════ -->
+      <div data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000">
+        <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
+          <span class="w-2 h-6 bg-blue-500 rounded-full inline-block"></span>
+          روابط سريعة
+        </h3>
+        <ul class="flex flex-col gap-4 text-lg font-medium">
+          <li>
+            <a href="#" class="group flex items-center gap-2 text-gray-400 hover:text-blue-400 transition-colors duration-300">
+              <i class="fa-solid fa-angle-left text-sm opacity-0 -mr-4 group-hover:opacity-100 group-hover:mr-0 transition-all duration-300 text-blue-500"></i>
+              عن المركز
+            </a>
+          </li>
+          <li>
+            <a href="#" class="group flex items-center gap-2 text-gray-400 hover:text-blue-400 transition-colors duration-300">
+              <i class="fa-solid fa-angle-left text-sm opacity-0 -mr-4 group-hover:opacity-100 group-hover:mr-0 transition-all duration-300 text-blue-500"></i>
+              الخدمات
+            </a>
+          </li>
+          <li>
+            <a href="#" class="group flex items-center gap-2 text-gray-400 hover:text-blue-400 transition-colors duration-300">
+              <i class="fa-solid fa-angle-left text-sm opacity-0 -mr-4 group-hover:opacity-100 group-hover:mr-0 transition-all duration-300 text-blue-500"></i>
+              الكورسات
+            </a>
+          </li>
+          <li>
+            <a href="#" class="group flex items-center gap-2 text-gray-400 hover:text-blue-400 transition-colors duration-300">
+              <i class="fa-solid fa-angle-left text-sm opacity-0 -mr-4 group-hover:opacity-100 group-hover:mr-0 transition-all duration-300 text-blue-500"></i>
+              الاختبارات
+            </a>
+          </li>
+          <li>
+            <a href="#" class="group flex items-center gap-2 text-gray-400 hover:text-blue-400 transition-colors duration-300">
+              <i class="fa-solid fa-angle-left text-sm opacity-0 -mr-4 group-hover:opacity-100 group-hover:mr-0 transition-all duration-300 text-blue-500"></i>
+              الترجمة
+            </a>
+          </li>
+          <li>
+            <a href="#" class="group flex items-center gap-2 text-gray-400 hover:text-blue-400 transition-colors duration-300">
+              <i class="fa-solid fa-angle-left text-sm opacity-0 -mr-4 group-hover:opacity-100 group-hover:mr-0 transition-all duration-300 text-blue-500"></i>
+              تواصل معنا
+            </a>
+          </li>
+        </ul>
       </div>
-    </div>
-  </div>
 
-  <!-- Footer Bottom -->
-  <div class="mt-16 pt-8 border-t border-gray-800" data-aos="fade-in" data-aos-duration="1200">
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-      <div class="flex flex-wrap justify-center gap-6 text-sm text-gray-400">
-        <a href="#" class="hover:text-white transition-colors">سياسة الخصوصية</a>
-        <a href="#" class="hover:text-white transition-colors">الشروط والأحكام</a>
-        <a href="#" class="hover:text-white transition-colors">سياسة الاسترجاع</a>
-        <a href="#" class="hover:text-white transition-colors">ملفات تعريف الارتباط</a>
+      <!-- ═══════ Resources Section ═══════ -->
+      <div data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
+        <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
+          <span class="w-2 h-6 bg-teal-500 rounded-full inline-block"></span>
+          الموارد
+        </h3>
+        <ul class="flex flex-col gap-4 text-lg font-medium">
+          <li>
+            <a href="#" class="group flex items-center gap-2 text-gray-400 hover:text-teal-400 transition-colors duration-300">
+              <i class="fa-solid fa-angle-left text-sm opacity-0 -mr-4 group-hover:opacity-100 group-hover:mr-0 transition-all duration-300 text-teal-500"></i>
+              الأسئلة الشائعة
+            </a>
+          </li>
+          <li>
+            <a href="#" class="group flex items-center gap-2 text-gray-400 hover:text-teal-400 transition-colors duration-300">
+              <i class="fa-solid fa-angle-left text-sm opacity-0 -mr-4 group-hover:opacity-100 group-hover:mr-0 transition-all duration-300 text-teal-500"></i>
+              دليل الطالب
+            </a>
+          </li>
+          <li>
+            <a href="#" class="group flex items-center gap-2 text-gray-400 hover:text-teal-400 transition-colors duration-300">
+              <i class="fa-solid fa-angle-left text-sm opacity-0 -mr-4 group-hover:opacity-100 group-hover:mr-0 transition-all duration-300 text-teal-500"></i>
+              المدونة
+            </a>
+          </li>
+          <li>
+            <a href="#" class="group flex items-center gap-2 text-gray-400 hover:text-teal-400 transition-colors duration-300">
+              <i class="fa-solid fa-angle-left text-sm opacity-0 -mr-4 group-hover:opacity-100 group-hover:mr-0 transition-all duration-300 text-teal-500"></i>
+              الأخبار
+            </a>
+          </li>
+          <li>
+            <a href="#" class="group flex items-center gap-2 text-gray-400 hover:text-teal-400 transition-colors duration-300">
+              <i class="fa-solid fa-angle-left text-sm opacity-0 -mr-4 group-hover:opacity-100 group-hover:mr-0 transition-all duration-300 text-teal-500"></i>
+              التقويم الأكاديمي
+            </a>
+          </li>
+          <li>
+            <a href="#" class="group flex items-center gap-2 text-gray-400 hover:text-teal-400 transition-colors duration-300">
+              <i class="fa-solid fa-angle-left text-sm opacity-0 -mr-4 group-hover:opacity-100 group-hover:mr-0 transition-all duration-300 text-teal-500"></i>
+              الوظائف
+            </a>
+          </li>
+        </ul>
       </div>
-      <div class="text-center md:text-left flex flex-col items-center md:items-start">
-        <p class="text-sm text-gray-400">
-          © 2025 مركز اللغات والترجمة - جامعة بني سويف. جميع الحقوق محفوظة
-        </p>
-        <p class="text-[10px] text-gray-600 mt-1">تم التطوير بواسطة فريق تكنولوجيا المعلومات</p>
+
+      <!-- ═══════ Contact Section ═══════ -->
+      <div class="flex flex-col gap-6" data-aos="fade-up" data-aos-delay="300" data-aos-duration="1000">
+        <h3 class="text-xl font-bold text-white mb-2 flex items-center gap-2">
+          <span class="w-2 h-6 bg-[#0066CC] rounded-full inline-block"></span>
+          تواصل معنا
+        </h3>
+
+        <div class="flex flex-col gap-5 text-lg font-medium">
+          <!-- Address -->
+          <div class="flex items-start gap-4">
+            <div class="shrink-0 w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400">
+              <i class="fa-solid fa-location-dot"></i>
+            </div>
+            <div class="pt-1 text-gray-300">
+              مدينة الجامعة، بني سويف، مصر
+            </div>
+          </div>
+
+          <!-- Phones -->
+          <div class="flex items-start gap-4">
+            <div class="shrink-0 w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400">
+              <i class="fa-solid fa-phone"></i>
+            </div>
+            <div class="pt-1 text-gray-300 flex flex-col gap-1" dir="ltr">
+              <span class="text-right">+20 82 1234 5678</span>
+              <span class="text-right">+20 82 8765 4321</span>
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="flex items-center gap-4">
+            <div class="shrink-0 w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400">
+              <i class="fa-solid fa-envelope"></i>
+            </div>
+            <div class="text-gray-300">
+              info@bsu.edu.eg
+            </div>
+          </div>
+        </div>
+
+        <!-- Working Hours Card -->
+        <div class="mt-2 bg-gradient-to-r from-blue-900/40 to-teal-900/40 p-5 rounded-2xl border border-white/5 shadow-inner backdrop-blur-sm flex items-center gap-4">
+          <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white shrink-0">
+            <i class="fa-regular fa-clock text-xl"></i>
+          </div>
+          <div>
+            <h4 class="text-white font-bold mb-1">ساعات العمل</h4>
+            <p class="text-sm text-gray-400">السبت - الخميس: 9:00 ص - 5:00 م</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ═══════ Footer Bottom ═══════ -->
+    <div class="mt-16 pt-8 border-t border-white/10" data-aos="fade-in" data-aos-duration="1200">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+        
+        <!-- Copyright -->
+        <div class="text-center md:text-right flex flex-col items-center md:items-start gap-1">
+          <p class="text-[15px] text-gray-400 font-medium">
+            &copy; 2025 مركز اللغات والترجمة - جامعة بني سويف. جميع الحقوق محفوظة.
+          </p>
+          <p class="text-[12px] text-gray-500 font-medium mt-1">تم التطوير بواسطة فريق تكنولوجيا المعلومات</p>
+        </div>
+
+        <!-- Small Links -->
+        <div class="flex flex-wrap justify-center gap-6 text-[15px] text-gray-400 font-medium">
+          <a href="#" class="hover:text-blue-400 transition-colors duration-300">سياسة الخصوصية</a>
+          <a href="#" class="hover:text-blue-400 transition-colors duration-300">الشروط والأحكام</a>
+          <a href="#" class="hover:text-blue-400 transition-colors duration-300">سياسة الاسترجاع</a>
+          <a href="#" class="hover:text-blue-400 transition-colors duration-300">ملفات تعريف الارتباط</a>
+        </div>
+        
       </div>
     </div>
   </div>
