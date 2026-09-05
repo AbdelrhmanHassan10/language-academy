@@ -82,18 +82,10 @@ html.lenis, html.lenis body {
   100% { background-position: 0% 50%; }
 }
 .global-text-gradient {
-  background: linear-gradient(270deg, #101828, #0066CC, #00B2A9, #101828);
-  background-size: 300% 300%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: gradient-text-global 5s ease infinite;
+  color: #0066CC;
 }
 .global-text-gradient-light {
-  background: linear-gradient(270deg, #ffffff, #00E5FF, #66B2FF, #ffffff);
-  background-size: 300% 300%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: gradient-text-global 5s ease infinite;
+  color: #ffffff;
 }
 
 @keyframes float-global {
