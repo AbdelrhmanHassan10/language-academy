@@ -31,7 +31,8 @@
               "src/assets"
             ],
             "allowedCommonJsDependencies": [
-              "aos"
+              "aos",
+              "sweetalert2"
             ],
             "styles": [
               "node_modules/aos/dist/aos.css",
